@@ -1,0 +1,12 @@
+{
+  "name": "The Paired Pebbles",
+  "image": "https://api.imd.fun/artifacts/7ba789199c944dadfbdabb4d1005da1f9b6f48a6a4a54657d1372e941675f97b",
+  "attributes": [
+    {"trait_type": "Cave", "value": "Ice"},
+    {"trait_type": "Wall", "value": "Line 2"},
+    {"trait_type": "Number", "value": 28},
+    {"trait_type": "Left behind", "value": "CSV Column Align"},
+    {"trait_type": "Meaning", "value": "Explicit links pair renamed CSV columns while unmatched fields remain visible as separate stones."},
+    {"trait_type": "One thing", "value": "Reconcile CSV datasets by stable keys"}
+  ]
+}

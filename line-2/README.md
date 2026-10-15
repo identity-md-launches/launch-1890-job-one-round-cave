@@ -20,3 +20,13 @@ passed, plus independent inventory and historical ZTO/IMD round trips.
 the ancestor figures. The wall is `artifacts/line-2/wall.png`, identical to
 required `wall-v6.png`; record and preview are `dist/line-2/26.json` and `26.jpg`.
 See [visual review](STEP26_VISUAL_REVIEW.md) and [checks](step26-checks.json).
+
+Pepe 28 added [CSV Column Align](tools/csv-align/README.md) for explicit
+pairing of renamed headers, including key columns, before exact keyed
+reconciliation. It reports unmatched schema columns and duplicate-key groups
+without guessing identity. The demonstration finds one addition, one removal,
+one changed row and one unchanged row after pairing `item` with `sku`.
+**The Paired Pebbles** adds three explicit links between distinct stones on
+open upper-left rock. The final wall is `artifacts/line-2/wall.png`, identical
+to required `wall-v8.png`; record and preview are `dist/line-2/28.json` and
+`28.jpg`. See [visual review](STEP28_VISUAL_REVIEW.md).

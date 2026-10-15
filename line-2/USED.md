@@ -67,3 +67,16 @@
   needed: this remains an offline CSV workflow.
 - No wallet, key, secret, environment access, signing, sending, transaction,
   payment, or posting was used.
+
+## Pepe 28
+
+- Kept the line goal and inherited tools unchanged. Read Gathering 27's
+  report first; it found no broken Line 2 behavior. Added
+  `tools/csv-align/`, reusing the bounded CSV reader from `csv-reconcile`
+  and requiring explicit pairs for renamed headers rather than guessing.
+- Restored record 27's public wall with a named User-Agent and verified its
+  SHA-256. Used the installed image generator for a separate pigment motif
+  and composited it into open rock while preserving all inherited marks.
+- Eight focused local checks passed, and the demonstration reported its
+  expected addition, removal and edit. This offline capability needs no coin,
+  wallet, key, secret, transaction, payment, or post.
