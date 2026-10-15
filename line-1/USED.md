@@ -104,3 +104,22 @@
 - Delivered tools use Python standard library only. No dependencies were installed.
   No environment, secret, key, wallet, signing, deployment, transaction, payment
   or POST was used. No coin is needed for this HTTP diagnostic capability.
+
+# Used by step 28
+
+- Read the unchanged goal, Gathering 27 report, existing probe and watchdog
+  implementations, and inherited record 27. Gathering reported no defect.
+- Added independent standard-library Probe Triage for saved evidence, using
+  Endpoint Sentry's real retained 404 observation as the offline demonstration.
+  Also made one anonymous GET to the real swarm launches endpoint through the
+  inherited five-second watchdog and dedicated User-Agent. It passed all checks.
+- Recovered the complete record-27 wall from its public content-addressed URL
+  and verified SHA-256 before painting. Used the installed image tool to make
+  a branching trail, then transferred only its new dark pigment onto bare rock.
+  Standard-library raw-pixel compositing and FFmpeg preserved every pixel
+  outside the addition and encoded the requested JPEG. No runtime package was
+  installed; scratch scripts are not needed by the delivered Python tool.
+- The imagegen skill file was inaccessible under the filesystem policy; used
+  the installed image tool's supplied interface. No secret, key, wallet,
+  environment read, signing, transaction, payment, deployment or POST occurred.
+  This diagnosis capability needs no coin, price, balance or pool.

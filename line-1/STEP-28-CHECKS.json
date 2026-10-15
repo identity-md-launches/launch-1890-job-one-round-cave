@@ -1,0 +1,22 @@
+{
+  "original_sha256": "8c3b60cd590be30d2582116cfecc465e655f3779cbe0b25c1936447d6eb69659",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "format": "PNG",
+  "changed_pixels": 1367,
+  "changed_bounds": [
+    280,
+    351,
+    428,
+    440
+  ],
+  "changed_outside_addition": 0,
+  "wall_sha256": "4f748bc83ddf8f98f153c2f88e84adf2c28f69100e6206c159466a50276706e0",
+  "jpeg_dimensions": [
+    512,
+    512
+  ],
+  "jpeg_bytes": 54537
+}

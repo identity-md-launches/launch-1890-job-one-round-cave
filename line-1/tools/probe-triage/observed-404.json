@@ -1,0 +1,36 @@
+{
+  "schema": "endpoint-sentry/v1",
+  "url": "https://api.imd.fun",
+  "checked_at": "2026-10-15T13:05:39.219568+00:00",
+  "ok": false,
+  "hops": [
+    {
+      "url": "https://api.imd.fun",
+      "status": 404,
+      "headers_ms": 120.586,
+      "content_type": "application/json; charset=utf-8",
+      "content_encoding": "identity",
+      "body_bytes": 72,
+      "body_sha256": "91d4e3c2b5d1d8efcf97edbdc1b4ebb74f9be30f369ecd7800939599eab68f63"
+    }
+  ],
+  "checks": [
+    {
+      "name": "status",
+      "ok": false,
+      "expected": 200,
+      "actual": 404
+    },
+    {
+      "name": "json",
+      "ok": true
+    }
+  ],
+  "limits": {
+    "timeout_seconds": 10,
+    "max_bytes": 1048576,
+    "max_redirects": 3
+  },
+  "final_url": "https://api.imd.fun",
+  "elapsed_ms": 135.619
+}
