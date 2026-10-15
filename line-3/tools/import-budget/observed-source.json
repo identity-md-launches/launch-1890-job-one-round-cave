@@ -1,0 +1,884 @@
+{
+  "status": "complete",
+  "limits": {
+    "files": 1000,
+    "file_bytes": 262144,
+    "total_bytes": 8388608,
+    "entries": 20000,
+    "depth": 64
+  },
+  "inventory": {
+    "files": 15,
+    "bytes": 81701,
+    "entries": 23,
+    "skipped_symlinks": 0,
+    "skipped_directories": 0,
+    "skipped_nonregular": 0,
+    "manifest": [
+      {
+        "path": "audit.py",
+        "bytes": 5729,
+        "sha256": "22ea683e902610280d2eae7bac8b5ff39f315833822380aa7594648d82813918"
+      },
+      {
+        "path": "checked_review.py",
+        "bytes": 2989,
+        "sha256": "17d38be703943f3fcb7db105467862385e55cafd66924f576fd1711ce0f49897"
+      },
+      {
+        "path": "drift.py",
+        "bytes": 4463,
+        "sha256": "b4c64fc6369bdbcc97d6d00ca3918b82798ea6e81a408e0ce8da75714bf9a786"
+      },
+      {
+        "path": "handoff.py",
+        "bytes": 3402,
+        "sha256": "c9f42ae506bc47e00b2aa6d94478d6ad3594e01fefc9b27e987a246a37100b1b"
+      },
+      {
+        "path": "impact.py",
+        "bytes": 4875,
+        "sha256": "1a83b3c5f1f274032b266fb21a3c854173c43022651a1c389e8b482ac6726285"
+      },
+      {
+        "path": "import_map.py",
+        "bytes": 11000,
+        "sha256": "2dafb724a5ea10a8b05fa65c0ce2a64a3605e5820ec19b22d13cd69d5454a312"
+      },
+      {
+        "path": "merge.py",
+        "bytes": 4749,
+        "sha256": "0a1e57e7fc48536fdd5e76235ee0612000b29fdc9f183c39a3c8fa8d9fd64abb"
+      },
+      {
+        "path": "patch.py",
+        "bytes": 8558,
+        "sha256": "a0b53d544e2231f9d24e24d980d89d16446193497e655a091a741dfd37c9e6e8"
+      },
+      {
+        "path": "patch_review.py",
+        "bytes": 3453,
+        "sha256": "75cdba94a5ff2a4be055925585963f36e081ba22bfe2329bea73bf301b8eaf8c"
+      },
+      {
+        "path": "reconcile.py",
+        "bytes": 7778,
+        "sha256": "c400a3855eeffe7249ada92549d702a11e40f3665bdb6661f9ec7628d05af85c"
+      },
+      {
+        "path": "review.py",
+        "bytes": 5830,
+        "sha256": "68fafb051b978478aa39f79bbdb93ebacf21c54d00d151bb01cd4e05fbd30a50"
+      },
+      {
+        "path": "test_checked_review.py",
+        "bytes": 4578,
+        "sha256": "8361115e17c9a57a2148853bcbb0c1eafe44c2194ef924a485d0efa35621c916"
+      },
+      {
+        "path": "test_drift.py",
+        "bytes": 7135,
+        "sha256": "f3876abe6efaead2ca8244d075a500109064e89314772ae94035b9cd56f9cf22"
+      },
+      {
+        "path": "test_handoff.py",
+        "bytes": 2830,
+        "sha256": "3dcfa11f244d68aa7d838cc570248b6c52b3883fadef90028598d50c85e307a7"
+      },
+      {
+        "path": "test_patch_review.py",
+        "bytes": 4332,
+        "sha256": "b830e689ed52706e63f2d7d07a8a25daa7ebdea968283b60c9b37393c4f54f6f"
+      }
+    ]
+  },
+  "map": {
+    "modules": [
+      {
+        "module": "audit",
+        "path": "audit.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "reconcile import InputError",
+            "kind": "local",
+            "resolved": "reconcile"
+          },
+          {
+            "line": 8,
+            "target": "reconcile import load_table",
+            "kind": "local",
+            "resolved": "reconcile"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "checked_review",
+        "path": "checked_review.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "html",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "audit",
+            "kind": "local",
+            "resolved": "audit"
+          },
+          {
+            "line": 9,
+            "target": "reconcile",
+            "kind": "local",
+            "resolved": "reconcile"
+          },
+          {
+            "line": 10,
+            "target": "review",
+            "kind": "local",
+            "resolved": "review"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "drift",
+        "path": "drift.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 10,
+            "target": "import_map",
+            "kind": "local",
+            "resolved": "import_map"
+          },
+          {
+            "line": 11,
+            "target": "reconcile",
+            "kind": "local",
+            "resolved": "reconcile"
+          },
+          {
+            "line": 12,
+            "target": "review",
+            "kind": "local",
+            "resolved": "review"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "handoff",
+        "path": "handoff.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 4,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 10,
+            "target": "drift",
+            "kind": "local",
+            "resolved": "drift"
+          },
+          {
+            "line": 11,
+            "target": "impact",
+            "kind": "local",
+            "resolved": "impact"
+          },
+          {
+            "line": 12,
+            "target": "merge",
+            "kind": "local",
+            "resolved": "merge"
+          },
+          {
+            "line": 13,
+            "target": "reconcile",
+            "kind": "local",
+            "resolved": "reconcile"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "impact",
+        "path": "impact.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 4,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "collections import deque",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "importlib.util",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 9,
+            "target": "sys",
+            "kind": "external"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "import_map",
+        "path": "import_map.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 4,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "ast",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "sys",
+            "kind": "external"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "merge",
+        "path": "merge.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 9,
+            "target": "reconcile import InputError",
+            "kind": "local",
+            "resolved": "reconcile"
+          },
+          {
+            "line": 9,
+            "target": "reconcile import load_table",
+            "kind": "local",
+            "resolved": "reconcile"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "patch",
+        "path": "patch.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "hashlib",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 9,
+            "target": "sys",
+            "kind": "external"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "patch_review",
+        "path": "patch_review.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "html",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "sys",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "patch",
+            "kind": "local",
+            "resolved": "patch"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "reconcile",
+        "path": "reconcile.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "sys",
+            "kind": "external"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "review",
+        "path": "review.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "argparse",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "html",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "importlib.util",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "sys",
+            "kind": "external"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "test_checked_review",
+        "path": "test_checked_review.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 2,
+            "target": "contextlib",
+            "kind": "external"
+          },
+          {
+            "line": 3,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "html.parser import HTMLParser",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "tempfile",
+            "kind": "external"
+          },
+          {
+            "line": 9,
+            "target": "unittest",
+            "kind": "external"
+          },
+          {
+            "line": 11,
+            "target": "checked_review",
+            "kind": "local",
+            "resolved": "checked_review"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "test_drift",
+        "path": "test_drift.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 1,
+            "target": "contextlib",
+            "kind": "external"
+          },
+          {
+            "line": 2,
+            "target": "csv",
+            "kind": "external"
+          },
+          {
+            "line": 3,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "html.parser import HTMLParser",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "tempfile",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "unittest",
+            "kind": "external"
+          },
+          {
+            "line": 10,
+            "target": "drift",
+            "kind": "local",
+            "resolved": "drift"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "test_handoff",
+        "path": "test_handoff.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 3,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "tempfile",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "unittest",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "drift",
+            "kind": "local",
+            "resolved": "drift"
+          },
+          {
+            "line": 8,
+            "target": "handoff",
+            "kind": "local",
+            "resolved": "handoff"
+          }
+        ],
+        "dynamic_import_lines": []
+      },
+      {
+        "module": "test_patch_review",
+        "path": "test_patch_review.py",
+        "entrypoint": true,
+        "imports": [
+          {
+            "line": 2,
+            "target": "contextlib",
+            "kind": "external"
+          },
+          {
+            "line": 3,
+            "target": "copy",
+            "kind": "external"
+          },
+          {
+            "line": 4,
+            "target": "io",
+            "kind": "external"
+          },
+          {
+            "line": 5,
+            "target": "json",
+            "kind": "external"
+          },
+          {
+            "line": 6,
+            "target": "pathlib import Path",
+            "kind": "external"
+          },
+          {
+            "line": 7,
+            "target": "tempfile",
+            "kind": "external"
+          },
+          {
+            "line": 8,
+            "target": "unittest",
+            "kind": "external"
+          },
+          {
+            "line": 9,
+            "target": "unittest.mock import patch",
+            "kind": "external"
+          },
+          {
+            "line": 11,
+            "target": "patch",
+            "kind": "local",
+            "resolved": "patch"
+          },
+          {
+            "line": 12,
+            "target": "patch_review",
+            "kind": "local",
+            "resolved": "patch_review"
+          },
+          {
+            "line": 13,
+            "target": "drift",
+            "kind": "local",
+            "resolved": "drift"
+          }
+        ],
+        "dynamic_import_lines": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "audit",
+        "to": "reconcile"
+      },
+      {
+        "from": "checked_review",
+        "to": "audit"
+      },
+      {
+        "from": "checked_review",
+        "to": "reconcile"
+      },
+      {
+        "from": "checked_review",
+        "to": "review"
+      },
+      {
+        "from": "drift",
+        "to": "import_map"
+      },
+      {
+        "from": "drift",
+        "to": "reconcile"
+      },
+      {
+        "from": "drift",
+        "to": "review"
+      },
+      {
+        "from": "handoff",
+        "to": "drift"
+      },
+      {
+        "from": "handoff",
+        "to": "impact"
+      },
+      {
+        "from": "handoff",
+        "to": "merge"
+      },
+      {
+        "from": "handoff",
+        "to": "reconcile"
+      },
+      {
+        "from": "merge",
+        "to": "reconcile"
+      },
+      {
+        "from": "patch_review",
+        "to": "patch"
+      },
+      {
+        "from": "test_checked_review",
+        "to": "checked_review"
+      },
+      {
+        "from": "test_drift",
+        "to": "drift"
+      },
+      {
+        "from": "test_handoff",
+        "to": "drift"
+      },
+      {
+        "from": "test_handoff",
+        "to": "handoff"
+      },
+      {
+        "from": "test_patch_review",
+        "to": "drift"
+      },
+      {
+        "from": "test_patch_review",
+        "to": "patch"
+      },
+      {
+        "from": "test_patch_review",
+        "to": "patch_review"
+      }
+    ],
+    "cycles": [],
+    "issues": [],
+    "summary": {
+      "module_count": 15,
+      "local_edge_count": 20,
+      "cycle_count": 0,
+      "issue_count": 0,
+      "entrypoints": [
+        "audit",
+        "checked_review",
+        "drift",
+        "handoff",
+        "impact",
+        "import_map",
+        "merge",
+        "patch",
+        "patch_review",
+        "reconcile",
+        "review",
+        "test_checked_review",
+        "test_drift",
+        "test_handoff",
+        "test_patch_review"
+      ]
+    }
+  },
+  "scope": "Complete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees."
+}

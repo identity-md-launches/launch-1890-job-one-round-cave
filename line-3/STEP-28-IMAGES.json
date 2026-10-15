@@ -1,0 +1,51 @@
+{
+  "ancestor_sha256": "5cd37d2fcd84e7cf9dec0af6f0e306387d5fc1604c057377693eff5e5d1cb063",
+  "generated_sha256": "4313d412736721779596ac16a5c57737c11c3ddbda76437eb3c50f5efa2e2145",
+  "png": {
+    "path": "artifacts/line-3/wall-v8.png",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 3999873,
+    "sha256": "3ec283818ad3b7afa5b5e3155154118d95044bb44a5726271ecbd55aa7178fc9"
+  },
+  "jpeg": {
+    "path": "dist/line-3/28.jpg",
+    "format": "JPEG",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 69161
+  },
+  "preservation": {
+    "source_rectangle": [
+      594,
+      937,
+      743,
+      1040
+    ],
+    "rectangle": [
+      594,
+      937,
+      743,
+      1040
+    ],
+    "changed_pixels": 15076,
+    "changed_bounds": [
+      595,
+      938,
+      742,
+      1039
+    ],
+    "outside_rectangle_changed_pixels": 0
+  },
+  "model": "built-in image_gen editing tool",
+  "visual_review_required": true,
+  "unmet_visual_requirements": [],
+  "visual_review_completed": true,
+  "visual_review": "Opened final PNG and JPEG; the bowl is on unused rock. Both inherited hands have five digits. No new hands, figures, writing, borders or watermarks."
+}

@@ -25,3 +25,11 @@ Step 27 adds [Import Boundaries](tools/import-boundaries/README.md): package
 crossings with exact source-line evidence and directed deny rules. Ten new
 behavioral checks and a real worker-source scan pass. [The step review](STEP-27-REVIEW.md)
 records the new mark and preservation checks.
+
+Step 28 adds [Import Budget](tools/import-budget/README.md): bounded source
+collection with file, byte, directory-entry and depth limits, exact byte hashes,
+and explicit refusal before parsing an incomplete collection. It uses a new
+optional in-memory input on Import Map, preserving existing callers. Fifteen
+new behavioral tests and all 45 inherited line tests pass. The real shared
+import-review worker scans cleanly. [Step review](STEP-28-REVIEW.md) records
+the tool and the bowl mark's artifact checks.

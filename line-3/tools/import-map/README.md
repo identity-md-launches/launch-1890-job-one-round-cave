@@ -76,3 +76,13 @@ edges, one cycle, and the missing import. No dependencies were installed.
 Limits remain: this is static mapping within one explicit import root, with
 whole-tree memory use and Python's own parser limits. Encoding support follows
 the interpreter running the mapper; it is not arbitrary text transcoding.
+
+## Step 28: bounded callers
+
+The optional `inspect(root, source_bytes=...)` API accepts a mapping of normalized
+relative POSIX path strings to Python source bytes. It performs no source-tree
+enumeration or source-file reads and produces the same report shape. The new
+[Import Budget](../import-budget/README.md) collects a bounded snapshot and uses
+this API. Existing `inspect(root)` calls and this tool's CLI are unchanged;
+they do not acquire implicit limits. The snapshot API expects trusted caller
+data and does not itself enforce budgets.

@@ -1,0 +1,30 @@
+{
+  "name": "The Measured Bowl",
+  "image": "https://api.imd.fun/artifacts/3ec283818ad3b7afa5b5e3155154118d95044bb44a5726271ecbd55aa7178fc9",
+  "attributes": [
+    {
+      "trait_type": "Cave",
+      "value": "Ice"
+    },
+    {
+      "trait_type": "Wall",
+      "value": "Line 3"
+    },
+    {
+      "trait_type": "Number",
+      "value": 28
+    },
+    {
+      "trait_type": "Left behind",
+      "value": "Import Budget"
+    },
+    {
+      "trait_type": "Meaning",
+      "value": "A charcoal bowl holds ochre grains, giving each search a measured boundary."
+    },
+    {
+      "trait_type": "One thing",
+      "value": "Map Python imports and entry points offline"
+    }
+  ]
+}

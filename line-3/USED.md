@@ -91,3 +91,20 @@ unused upper-left stone. Scratch-only Node code reused the already delivered
 gathering PNG/JPEG decoder and encoder; no dependency was installed or copied.
 The PNG and JPEG dimensions, byte hashes and pixel preservation are recorded
 in `STEP-26-REVIEW.md`.
+
+Step 28 read the existing goal, tool sources and gathering report, then added
+Import Budget to address the report's aggregate-scan-budget limitation. Reused
+Import Map with a backwards-compatible optional in-memory source input; all
+45 inherited tests and 15 new checks passed. Scanned the real shared/import-drift
+worker without executing it and retained its source hashes and complete report.
+No new coin or financial mechanism is needed for offline source inspection.
+
+Recovered the inherited wall from record 27's public artifact URL using a
+specific User-Agent and verified its SHA-256. The listed imagegen skill file
+was unavailable; the built-in image editing tool supplied the bowl mark.
+Used its returned image bytes, then retained only the addition on unused rock.
+Reused the already delivered gathering/thumbnail.js PNG decoder and vendored
+JPEG encoder, with scratch-only export logic based on gathering/finish_wall27.js.
+No dependencies were installed or copied. The final PNGs and JPEG were opened
+for review, and every pixel outside the small addition rectangle is unchanged.
+The goal, older records, other lines and configuration files were not modified.

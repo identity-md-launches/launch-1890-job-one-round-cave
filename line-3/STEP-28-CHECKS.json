@@ -1,0 +1,163 @@
+{
+  "new_behavioral_tests": 15,
+  "inherited_behavioral_tests": 45,
+  "all_passed": true,
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "line-3/tools/import-budget",
+        "-v"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "output": "test_cli_strict_warning_and_refusal_envelopes (test_budget.BudgetTests.test_cli_strict_warning_and_refusal_envelopes) ... ok\ntest_depth_and_non_python_entries_are_bounded (test_budget.BudgetTests.test_depth_and_non_python_entries_are_bounded) ... ok\ntest_empty_tree_and_root_initializer_budget (test_budget.BudgetTests.test_empty_tree_and_root_initializer_budget) ... ok\ntest_encoding_collision_and_parse_warnings_survive (test_budget.BudgetTests.test_encoding_collision_and_parse_warnings_survive) ... ok\ntest_exact_file_and_byte_limits_accept_then_refuse (test_budget.BudgetTests.test_exact_file_and_byte_limits_accept_then_refuse) ... ok\ntest_growing_file_still_has_a_bounded_read (test_budget.BudgetTests.test_growing_file_still_has_a_bounded_read) ... ok\ntest_invalid_limits_and_outside_root_rejected_before_enumeration (test_budget.BudgetTests.test_invalid_limits_and_outside_root_rejected_before_enumeration) ... ok\ntest_io_failure_refuses_without_partial_map (test_budget.BudgetTests.test_io_failure_refuses_without_partial_map) ... ok\ntest_no_parsing_until_entire_collection_passes (test_budget.BudgetTests.test_no_parsing_until_entire_collection_passes) ... ok\ntest_nonregular_sources_are_not_opened (test_budget.BudgetTests.test_nonregular_sources_are_not_opened) ... ok\ntest_oversized_file_is_refused_before_read (test_budget.BudgetTests.test_oversized_file_is_refused_before_read) ... ok\ntest_real_example_matches_original_mapper (test_budget.BudgetTests.test_real_example_matches_original_mapper) ... ok\ntest_skip_directories_without_descending_and_skip_symlinks (test_budget.BudgetTests.test_skip_directories_without_descending_and_skip_symlinks) ... ok\ntest_snapshot_is_exact_and_requires_no_second_read (test_budget.BudgetTests.test_snapshot_is_exact_and_requires_no_second_read) ... ok\ntest_source_is_never_executed (test_budget.BudgetTests.test_source_is_never_executed) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.042s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "line-3/tools/import-map/examples"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "output": "Collection complete: 4 files, 286 source bytes, 5 directory entries\nModules: 4; local edges: 3; cycles: 1; issues: 1\nmain (main.py) [entry point]\n  1: local: pkg import engine -> pkg.engine\npkg (pkg/__init__.py)\npkg.engine (pkg/engine.py)\n  1: local: . import helper -> pkg.helper\n  2: unresolved_local: .missing import value\npkg.helper (pkg/helper.py)\n  1: local: . import engine -> pkg.engine\nCycle: pkg.engine <-> pkg.helper\nIssue: pkg/engine.py:2 unresolved_local .missing import value\nComplete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees.\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "line-3/tools/import-map/examples",
+        "--strict",
+        "--json"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "passed": true,
+      "status": "complete",
+      "summary": {
+        "module_count": 4,
+        "local_edge_count": 3,
+        "cycle_count": 1,
+        "issue_count": 1,
+        "entrypoints": [
+          "main"
+        ]
+      }
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "line-3/tools/import-map/examples",
+        "--max-files",
+        "1",
+        "--json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "passed": true,
+      "status": "refused",
+      "summary": {
+        "type": "budget_exceeded",
+        "budget": "files",
+        "limit": 1,
+        "observed": 2,
+        "path": "pkg/engine.py"
+      }
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "shared/import-drift",
+        "--json",
+        "--strict"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "status": "complete",
+      "summary": {
+        "module_count": 15,
+        "local_edge_count": 20,
+        "cycle_count": 0,
+        "issue_count": 0,
+        "entrypoints": [
+          "audit",
+          "checked_review",
+          "drift",
+          "handoff",
+          "impact",
+          "import_map",
+          "merge",
+          "patch",
+          "patch_review",
+          "reconcile",
+          "review",
+          "test_checked_review",
+          "test_drift",
+          "test_handoff",
+          "test_patch_review"
+        ]
+      }
+    }
+  ],
+  "inherited_suites": [
+    {
+      "command": "python3 -B -m unittest discover -s line-3/tools/import-map -v",
+      "tests": 10,
+      "exit": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s line-3/tools/import-impact -v",
+      "tests": 8,
+      "exit": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s line-3/tools/import-delta -v",
+      "tests": 9,
+      "exit": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s line-3/tools/import-reach -v",
+      "tests": 8,
+      "exit": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s line-3/tools/import-boundaries -v",
+      "tests": 10,
+      "exit": 0
+    }
+  ],
+  "note": "Local observations, not independent certification. Inherited suites ran before the final documentation and additional new-tool test changes.",
+  "delivery": {
+    "scope_valid": true,
+    "goal_byte_identical": true,
+    "all_inherited_records_and_previews_byte_identical": true,
+    "record_count": 28,
+    "new_record": 28,
+    "png_dimensions": [
+      1254,
+      1254
+    ],
+    "jpeg_dimensions": [
+      512,
+      512
+    ],
+    "artifact_hash_matches_record": true,
+    "png_outputs_untracked": true,
+    "new_files_outside_artifacts_below_100000_bytes": true
+  }
+}
