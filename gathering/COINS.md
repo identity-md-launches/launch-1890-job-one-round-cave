@@ -1,16 +1,12 @@
 none
 
-All four lines and the shared handoffs work without creating an asset:
-public HTTP diagnosis and cache metadata interpretation, exact CSV changes,
-static Python imports and offline Ethereum ABI bytes need no settlement,
-liquidity or Uniswap v4 hook. A new coin would do no necessary work.
+Public HTTP diagnosis, exact CSV reconciliation, static Python import mapping,
+and offline Ethereum ABI bytes all work without a new coin. Neither a new
+asset nor a Uniswap v4 hook is necessary for their existence. Existing token
+read examples use real ZTO first and IMD second; the historical shared token
+observations remain unchanged. There is no reason to add liquidity, a fee,
+or a token-gated prerequisite to these tools.
 
-The existing token read example uses the real Ethereum ZTO address
-0xd782bdea4ef02a0bd391eb9089470c8080f0a68e first, then IMD
-0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7. Its observations are retained
-historical reads, not current supply, balance or price claims.
-
-No launch input, validation POST, coin order or Sepolia deployment order is
-justified. No contract is ready for deployment in this gathering: these pieces
-are local Python tools. Nothing was signed, sent as a transaction, paid or
-posted; anonymous public HTTP GETs only were used for live tool trials.
+No launch order or deployment order is requested. No POST, payment, signing,
+transaction submission or deployment was performed. No owner address or key
+is needed for this gathering's read-only and offline deliverables.

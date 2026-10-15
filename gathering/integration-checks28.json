@@ -1,0 +1,2415 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "name": "Report Delta retained observations",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/report-delta/report_delta.py",
+        "line-1/tools/report-delta/observed-before.json",
+        "line-1/tools/report-delta/observed-after.json",
+        "--same-expectations"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "report-delta/v1",
+        "verdict": "still_healthy",
+        "reasons": [],
+        "before_ok": true,
+        "after_ok": true,
+        "changes": [],
+        "body_change_is_health_failure": false
+      }
+    },
+    {
+      "name": "Report Delta retained gathering25 observations",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/report-delta/report_delta.py",
+        "test/scratch/gathering28/before.json",
+        "test/scratch/gathering28/after.json",
+        "--same-expectations"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "report-delta/v1",
+        "verdict": "still_healthy",
+        "reasons": [],
+        "before_ok": true,
+        "after_ok": true,
+        "changes": [],
+        "body_change_is_health_failure": false
+      }
+    },
+    {
+      "name": "CSV key audit composite key",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-key-audit/audit.py",
+        "line-2/tools/csv-key-audit/demo.csv",
+        "--key",
+        "item",
+        "--key",
+        "location"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "caution": "Unique nonempty keys in these files do not prove stable identity across exports.",
+        "datasets": [
+          {
+            "distinct_keys": 3,
+            "duplicate_examples": [],
+            "duplicate_groups": 0,
+            "duplicate_records": 0,
+            "eligible_keys": 3,
+            "empty_examples": [],
+            "empty_key_groups": 0,
+            "empty_key_records": 0,
+            "input": "line-2/tools/csv-key-audit/demo.csv",
+            "input_index": 0,
+            "issues": [],
+            "omitted_duplicate_groups": 0,
+            "omitted_empty_groups": 0,
+            "passes": true,
+            "records": 3
+          }
+        ],
+        "example_limit": 5,
+        "format": "csv-key-audit/v1",
+        "keys": [
+          "item",
+          "location"
+        ],
+        "passes": true
+      }
+    },
+    {
+      "name": "CSV key audit ambiguous key",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-key-audit/audit.py",
+        "line-2/tools/csv-key-audit/demo.csv",
+        "--key",
+        "item"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "caution": "Unique nonempty keys in these files do not prove stable identity across exports.",
+        "datasets": [
+          {
+            "distinct_keys": 2,
+            "duplicate_examples": [
+              {
+                "key_preview": {
+                  "item": {
+                    "characters": 4,
+                    "text": "lamp",
+                    "truncated": false
+                  }
+                },
+                "omitted_records": 0,
+                "record_count": 2,
+                "records": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "duplicate_groups": 1,
+            "duplicate_records": 2,
+            "eligible_keys": 1,
+            "empty_examples": [],
+            "empty_key_groups": 0,
+            "empty_key_records": 0,
+            "input": "line-2/tools/csv-key-audit/demo.csv",
+            "input_index": 0,
+            "issues": [
+              "duplicate_key"
+            ],
+            "omitted_duplicate_groups": 0,
+            "omitted_empty_groups": 0,
+            "passes": false,
+            "records": 3
+          }
+        ],
+        "example_limit": 5,
+        "format": "csv-key-audit/v1",
+        "keys": [
+          "item"
+        ],
+        "passes": false
+      }
+    },
+    {
+      "name": "CSV exact reconciliation",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-reconcile/reconcile.py",
+        "line-2/tools/csv-reconcile/demo-before.csv",
+        "line-2/tools/csv-reconcile/demo-after.csv",
+        "--key",
+        "item"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "added": [
+          {
+            "key": {
+              "item": "chalk"
+            },
+            "record": 4,
+            "values": {
+              "item": "chalk",
+              "location": "south",
+              "note": "Mark routes",
+              "quantity": "3"
+            }
+          }
+        ],
+        "ambiguous": [],
+        "changed": [
+          {
+            "after_record": 2,
+            "before_record": 3,
+            "fields": {
+              "quantity": {
+                "after": "2",
+                "before": "1"
+              }
+            },
+            "key": {
+              "item": "lamp"
+            }
+          }
+        ],
+        "complete": true,
+        "equal": false,
+        "format": "csv-reconcile/v1",
+        "ignored_columns": [],
+        "keys": [
+          "item"
+        ],
+        "removed": [
+          {
+            "key": {
+              "item": "flint"
+            },
+            "record": 4,
+            "values": {
+              "item": "flint",
+              "location": "south",
+              "note": "",
+              "quantity": "4"
+            }
+          }
+        ],
+        "schema": {
+          "added_columns": [],
+          "removed_columns": []
+        },
+        "summary": {
+          "added": 1,
+          "after_records": 3,
+          "ambiguous_keys": 0,
+          "before_records": 3,
+          "changed": 1,
+          "removed": 1,
+          "unchanged_on_common_columns": 1
+        }
+      }
+    },
+    {
+      "name": "CSV HTML review",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-review/review.py",
+        "line-2/tools/csv-reconcile/demo-before.csv",
+        "line-2/tools/csv-reconcile/demo-after.csv",
+        "--key",
+        "item"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "html_bytes": 4153,
+      "has_html_document": true
+    },
+    {
+      "name": "CSV three-way merge",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-merge/merge.py",
+        "line-2/tools/csv-merge/demo-base.csv",
+        "line-2/tools/csv-merge/demo-left.csv",
+        "line-2/tools/csv-merge/demo-right.csv",
+        "--key",
+        "item",
+        "--format",
+        "csv"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": "item,place,count,note\nflint,cache,3,plain\nlamp,cave,2,shaded\nrope,cave,2,coiled\n"
+    },
+    {
+      "name": "Import Map example",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-map/import_map.py",
+        "line-3/tools/import-map/examples",
+        "--json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "modules": [
+          {
+            "module": "main",
+            "path": "main.py",
+            "entrypoint": true,
+            "imports": [
+              {
+                "line": 1,
+                "target": "pkg import engine",
+                "kind": "local",
+                "resolved": "pkg.engine"
+              }
+            ],
+            "dynamic_import_lines": []
+          },
+          {
+            "module": "pkg",
+            "path": "pkg/__init__.py",
+            "entrypoint": false,
+            "imports": [],
+            "dynamic_import_lines": []
+          },
+          {
+            "module": "pkg.engine",
+            "path": "pkg/engine.py",
+            "entrypoint": false,
+            "imports": [
+              {
+                "line": 1,
+                "target": ". import helper",
+                "kind": "local",
+                "resolved": "pkg.helper"
+              },
+              {
+                "line": 2,
+                "target": ".missing import value",
+                "kind": "unresolved_local"
+              }
+            ],
+            "dynamic_import_lines": []
+          },
+          {
+            "module": "pkg.helper",
+            "path": "pkg/helper.py",
+            "entrypoint": false,
+            "imports": [
+              {
+                "line": 1,
+                "target": ". import engine",
+                "kind": "local",
+                "resolved": "pkg.engine"
+              }
+            ],
+            "dynamic_import_lines": []
+          }
+        ],
+        "edges": [
+          {
+            "from": "main",
+            "to": "pkg.engine"
+          },
+          {
+            "from": "pkg.engine",
+            "to": "pkg.helper"
+          },
+          {
+            "from": "pkg.helper",
+            "to": "pkg.engine"
+          }
+        ],
+        "cycles": [
+          [
+            "pkg.engine",
+            "pkg.helper"
+          ]
+        ],
+        "issues": [
+          {
+            "type": "unresolved_local",
+            "path": "pkg/engine.py",
+            "line": 2,
+            "target": ".missing import value"
+          }
+        ],
+        "summary": {
+          "module_count": 4,
+          "local_edge_count": 3,
+          "cycle_count": 1,
+          "issue_count": 1,
+          "entrypoints": [
+            "main"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Import Impact real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-impact/impact.py",
+        "line-1/tools/deadline-sentry",
+        "deadline_sentry",
+        "--json",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "changed": [
+          "deadline_sentry"
+        ],
+        "affected": [
+          {
+            "module": "deadline_sentry",
+            "path": "deadline_sentry.py",
+            "entrypoint": true,
+            "distance": 0,
+            "import_path": [
+              "deadline_sentry"
+            ]
+          },
+          {
+            "module": "test_deadline_sentry",
+            "path": "test_deadline_sentry.py",
+            "entrypoint": true,
+            "distance": 1,
+            "import_path": [
+              "test_deadline_sentry",
+              "deadline_sentry"
+            ]
+          }
+        ],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 2,
+          "affected_count": 2,
+          "dependent_count": 1,
+          "affected_entrypoints": [
+            "deadline_sentry",
+            "test_deadline_sentry"
+          ]
+        },
+        "scope": "Static explicit local import edges only; absence is not proof of isolation."
+      }
+    },
+    {
+      "name": "Import Delta added cycle",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-delta/delta.py",
+        "line-3/tools/import-delta/examples/before",
+        "line-3/tools/import-delta/examples/after",
+        "--json",
+        "--check"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "changes": {
+          "modules": {
+            "added": [],
+            "removed": []
+          },
+          "edges": {
+            "added": [
+              {
+                "from": "helper",
+                "to": "main"
+              }
+            ],
+            "removed": []
+          },
+          "entrypoints": {
+            "added": [],
+            "removed": []
+          },
+          "cycle_groups": {
+            "added": [
+              [
+                "helper",
+                "main"
+              ]
+            ],
+            "removed": []
+          },
+          "source_paths": []
+        },
+        "has_changes": true,
+        "has_warnings": false,
+        "scans": {
+          "before": {
+            "issues": [],
+            "dynamic_imports": []
+          },
+          "after": {
+            "issues": [],
+            "dynamic_imports": []
+          }
+        },
+        "summary": {
+          "before": {
+            "module_count": 2,
+            "local_edge_count": 1,
+            "cycle_count": 0,
+            "issue_count": 0,
+            "entrypoints": [
+              "main"
+            ]
+          },
+          "after": {
+            "module_count": 2,
+            "local_edge_count": 2,
+            "cycle_count": 1,
+            "issue_count": 0,
+            "entrypoints": [
+              "main"
+            ]
+          }
+        },
+        "scope": "Static explicit local imports only. Changes are graph changes, not all source edits; warnings can hide edges."
+      }
+    },
+    {
+      "name": "Import Delta real worker unchanged",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-delta/delta.py",
+        "line-1/tools/deadline-sentry",
+        "line-1/tools/deadline-sentry",
+        "--json",
+        "--check",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "changes": {
+          "modules": {
+            "added": [],
+            "removed": []
+          },
+          "edges": {
+            "added": [],
+            "removed": []
+          },
+          "entrypoints": {
+            "added": [],
+            "removed": []
+          },
+          "cycle_groups": {
+            "added": [],
+            "removed": []
+          },
+          "source_paths": []
+        },
+        "has_changes": false,
+        "has_warnings": false,
+        "scans": {
+          "before": {
+            "issues": [],
+            "dynamic_imports": []
+          },
+          "after": {
+            "issues": [],
+            "dynamic_imports": []
+          }
+        },
+        "summary": {
+          "before": {
+            "module_count": 2,
+            "local_edge_count": 1,
+            "cycle_count": 0,
+            "issue_count": 0,
+            "entrypoints": [
+              "deadline_sentry",
+              "test_deadline_sentry"
+            ]
+          },
+          "after": {
+            "module_count": 2,
+            "local_edge_count": 1,
+            "cycle_count": 0,
+            "issue_count": 0,
+            "entrypoints": [
+              "deadline_sentry",
+              "test_deadline_sentry"
+            ]
+          }
+        },
+        "scope": "Static explicit local imports only. Changes are graph changes, not all source edits; warnings can hide edges."
+      }
+    },
+    {
+      "name": "ABI offline demo",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "--demo"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "signature": "transfer(address,uint256)",
+        "selector": "0xa9059cbb",
+        "arguments": [
+          "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+          123
+        ],
+        "calldata": "0xa9059cbb000000000000000000000000d782bdea4ef02a0bd391eb9089470c8080f0a68e000000000000000000000000000000000000000000000000000000000000007b"
+      }
+    },
+    {
+      "name": "ABI published array layout",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "encode",
+        "--abi",
+        "line-4/tools/abi-workbench/array-example.json",
+        "--function",
+        "f",
+        "--args",
+        "[291,[1110,1929],\"0x31323334353637383930\",\"0x48656c6c6f2c20776f726c6421\"]"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "signature": "f(uint256,uint32[],bytes10,bytes)",
+        "selector": "0x8be65246",
+        "calldata": "0x8be6524600000000000000000000000000000000000000000000000000000000000001230000000000000000000000000000000000000000000000000000000000000080313233343536373839300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000004560000000000000000000000000000000000000000000000000000000000000789000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000"
+      }
+    },
+    {
+      "name": "ABI strict boolean",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "decode",
+        "--abi",
+        "line-4/tools/abi-workbench/alias-example.json",
+        "--function",
+        "transfer",
+        "--strict",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000001"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "signature": "transfer(address,uint256)",
+        "outputs": [
+          {
+            "name": "ok",
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "ABI strict rejects surplus",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "decode",
+        "--abi",
+        "line-4/tools/abi-workbench/alias-example.json",
+        "--function",
+        "transfer",
+        "--strict",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "error: noncanonical return data: strict mode requires exact re-encoding\n",
+      "passed": true,
+      "output": ""
+    },
+    {
+      "name": "Token Read Plan historical ZTO and IMD",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/token-read-plan/token_read_plan.py",
+        "demo"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": "chain_id,token_address,expected_symbol,field,raw_value,display_value,block_number\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,symbol,ZTO,ZTO,0x18fc1e6\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,decimals,18,18,0x18fc1e6\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,totalSupply,1000000000000000000000000000,1000000000,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,symbol,IMD,IMD,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,decimals,18,18,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,totalSupply,4164418598629000000000000,4164418.598629,0x18fc1e6\n"
+    },
+    {
+      "name": "Checked token CSV review",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/checked_review.py",
+        "shared/token-read-plan/observed.csv",
+        "shared/token-read-plan/observed.csv",
+        "--key",
+        "chain_id",
+        "--key",
+        "token_address",
+        "--key",
+        "field"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "checked-csv-review/v1",
+        "ready": true,
+        "key_audit": {
+          "format": "csv-key-audit/v1",
+          "keys": [
+            "chain_id",
+            "token_address",
+            "field"
+          ],
+          "passes": true,
+          "example_limit": 5,
+          "datasets": [
+            {
+              "input_index": 0,
+              "input": "shared/token-read-plan/observed.csv",
+              "records": 6,
+              "distinct_keys": 6,
+              "eligible_keys": 6,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0
+            },
+            {
+              "input_index": 1,
+              "input": "shared/token-read-plan/observed.csv",
+              "records": 6,
+              "distinct_keys": 6,
+              "eligible_keys": 6,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0,
+              "overlap_with_first": {
+                "shared_eligible_keys": 6,
+                "only_first": 0,
+                "only_this": 0
+              }
+            }
+          ],
+          "caution": "Unique nonempty keys in these files do not prove stable identity across exports."
+        },
+        "comparison": {
+          "format": "csv-reconcile/v1",
+          "keys": [
+            "chain_id",
+            "token_address",
+            "field"
+          ],
+          "ignored_columns": [],
+          "equal": true,
+          "complete": true,
+          "schema": {
+            "added_columns": [],
+            "removed_columns": []
+          },
+          "summary": {
+            "before_records": 6,
+            "after_records": 6,
+            "added": 0,
+            "removed": 0,
+            "changed": 0,
+            "unchanged_on_common_columns": 6,
+            "ambiguous_keys": 0
+          },
+          "added": [],
+          "removed": [],
+          "changed": [],
+          "ambiguous": []
+        }
+      }
+    },
+    {
+      "name": "Checked token HTML review",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/checked_review.py",
+        "shared/token-read-plan/observed.csv",
+        "shared/token-read-plan/observed.csv",
+        "--key",
+        "chain_id",
+        "--key",
+        "token_address",
+        "--key",
+        "field",
+        "--format",
+        "html"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "html_bytes": 4223,
+      "has_html_document": true
+    },
+    {
+      "name": "Import Drift real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/drift.py",
+        "snapshot",
+        "line-1/tools/endpoint-sentry"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "{\"cycle_count\": 0, \"entrypoints\": [\"sentry\", \"test_sentry\"], \"issue_count\": 0, \"local_edge_count\": 1, \"module_count\": 2, \"schema\": \"import-drift/v1\"}\n",
+      "passed": true,
+      "output": "module,path,entrypoint,local_imports,external_imports,unresolved_imports,dynamic_import_lines,parse_errors\nsentry,sentry.py,true,[],\"[\"\"argparse\"\",\"\"datetime\"\",\"\"hashlib\"\",\"\"http.client\"\",\"\"json\"\",\"\"math\"\",\"\"socket\"\",\"\"ssl\"\",\"\"sys\"\",\"\"time\"\",\"\"urllib.parse\"\"]\",[],[],[]\ntest_sentry,test_sentry.py,true,\"[\"\"sentry\"\"]\",\"[\"\"contextlib\"\",\"\"io\"\",\"\"json\"\",\"\"socket\"\",\"\"ssl\"\",\"\"unittest\"\",\"\"unittest import mock\"\"]\",[],[],[]\n"
+    },
+    {
+      "name": "Checked import CSV review",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/checked_review.py",
+        "shared/import-drift/observed-sentry23.csv",
+        "test/scratch/gathering28/sentry.csv",
+        "--key",
+        "module"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "checked-csv-review/v1",
+        "ready": true,
+        "key_audit": {
+          "format": "csv-key-audit/v1",
+          "keys": [
+            "module"
+          ],
+          "passes": true,
+          "example_limit": 5,
+          "datasets": [
+            {
+              "input_index": 0,
+              "input": "shared/import-drift/observed-sentry23.csv",
+              "records": 2,
+              "distinct_keys": 2,
+              "eligible_keys": 2,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0
+            },
+            {
+              "input_index": 1,
+              "input": "test/scratch/gathering28/sentry.csv",
+              "records": 2,
+              "distinct_keys": 2,
+              "eligible_keys": 2,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0,
+              "overlap_with_first": {
+                "shared_eligible_keys": 2,
+                "only_first": 0,
+                "only_this": 0
+              }
+            }
+          ],
+          "caution": "Unique nonempty keys in these files do not prove stable identity across exports."
+        },
+        "comparison": {
+          "format": "csv-reconcile/v1",
+          "keys": [
+            "module"
+          ],
+          "ignored_columns": [],
+          "equal": true,
+          "complete": true,
+          "schema": {
+            "added_columns": [],
+            "removed_columns": []
+          },
+          "summary": {
+            "before_records": 2,
+            "after_records": 2,
+            "added": 0,
+            "removed": 0,
+            "changed": 0,
+            "unchanged_on_common_columns": 2,
+            "ambiguous_keys": 0
+          },
+          "added": [],
+          "removed": [],
+          "changed": [],
+          "ambiguous": []
+        }
+      }
+    },
+    {
+      "name": "Import merge and impact handoff",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/handoff.py",
+        "shared/import-drift/observed-sentry23.csv",
+        "shared/import-drift/observed-sentry23.csv",
+        "shared/import-drift/observed-sentry23.csv",
+        "line-1/tools/endpoint-sentry"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "changed_modules": [],
+        "conflicts": [],
+        "impact": null,
+        "limits": "Static local imports only. Removed modules have no current reverse path; review unresolved imports separately.",
+        "merge_summary": {
+          "base_records": 2,
+          "conflicts": 0,
+          "decisions": {
+            "both": 0,
+            "combined": 0,
+            "deleted": 0,
+            "left": 0,
+            "right": 0,
+            "unchanged": 2
+          },
+          "left_records": 2,
+          "merged_records": 2,
+          "right_records": 2
+        },
+        "ready": true,
+        "removed_modules": [],
+        "scan_summary": {
+          "cycle_count": 0,
+          "entrypoints": [
+            "sentry",
+            "test_sentry"
+          ],
+          "issue_count": 0,
+          "local_edge_count": 1,
+          "module_count": 2
+        },
+        "schema": "import-handoff/v1"
+      }
+    },
+    {
+      "name": "Import Reach fixture",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-reach/reach.py",
+        "line-3/tools/import-reach/examples",
+        "--json",
+        "--check-unreached"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "starts": [
+          "main"
+        ],
+        "reached": [
+          {
+            "module": "main",
+            "path": "main.py",
+            "distance": 0,
+            "import_path": [
+              "main"
+            ]
+          },
+          {
+            "module": "core",
+            "path": "core.py",
+            "distance": 1,
+            "import_path": [
+              "main",
+              "core"
+            ]
+          },
+          {
+            "module": "helper",
+            "path": "helper.py",
+            "distance": 2,
+            "import_path": [
+              "main",
+              "core",
+              "helper"
+            ]
+          }
+        ],
+        "unreached": [
+          {
+            "module": "spare",
+            "path": "spare.py"
+          }
+        ],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 4,
+          "reached_count": 3,
+          "unreached_count": 1
+        },
+        "scope": "Explicit static local imports only. Unreached does not mean unused."
+      }
+    },
+    {
+      "name": "Import Reach real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-reach/reach.py",
+        "line-1/tools/deadline-sentry",
+        "--json",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "starts": [
+          "deadline_sentry",
+          "test_deadline_sentry"
+        ],
+        "reached": [
+          {
+            "module": "deadline_sentry",
+            "path": "deadline_sentry.py",
+            "distance": 0,
+            "import_path": [
+              "deadline_sentry"
+            ]
+          },
+          {
+            "module": "test_deadline_sentry",
+            "path": "test_deadline_sentry.py",
+            "distance": 0,
+            "import_path": [
+              "test_deadline_sentry"
+            ]
+          }
+        ],
+        "unreached": [],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 2,
+          "reached_count": 2,
+          "unreached_count": 0
+        },
+        "scope": "Explicit static local imports only. Unreached does not mean unused."
+      }
+    },
+    {
+      "name": "ABI inspect canonical calldata",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "decode-call",
+        "--abi",
+        "line-4/tools/abi-workbench/alias-example.json",
+        "--function",
+        "transfer",
+        "--data",
+        "0xa9059cbb000000000000000000000000d782bdea4ef02a0bd391eb9089470c8080f0a68e000000000000000000000000000000000000000000000000000000000000000c"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "signature": "transfer(address,uint256)",
+        "selector": "0xa9059cbb",
+        "arguments": [
+          {
+            "name": "recipient",
+            "type": "address",
+            "value": "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "value": 12
+          }
+        ]
+      }
+    },
+    {
+      "name": "ABI rejects wrong calldata selector",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "decode-call",
+        "--abi",
+        "line-4/tools/abi-workbench/alias-example.json",
+        "--function",
+        "transfer",
+        "--data",
+        "0x00000000000000000000000000000000d782bdea4ef02a0bd391eb9089470c8080f0a68e000000000000000000000000000000000000000000000000000000000000000c"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "error: calldata selector does not match transfer(address,uint256) (expected 0xa9059cbb)\n",
+      "passed": true,
+      "output": ""
+    },
+    {
+      "name": "CSV reviewed inventory patch",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-patch/patch.py",
+        "plan",
+        "line-2/tools/csv-reconcile/demo-before.csv",
+        "line-2/tools/csv-reconcile/demo-after.csv",
+        "--key",
+        "item",
+        "--key",
+        "location"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-patch/v1",
+        "keys": [
+          "item",
+          "location"
+        ],
+        "header": [
+          "item",
+          "location",
+          "quantity",
+          "note"
+        ],
+        "baseline_sha256": "f5a06fd7f62ad319d558d2fd5f7d974b93e201178d559a11df8d6ddacd15c6e3",
+        "result_sha256": "109cca65c5ed2691f11ff1d6ff44acaadda4262f6a0eabecf2d427bad7610659",
+        "operations": [
+          {
+            "before": null,
+            "after": {
+              "item": "chalk",
+              "location": "south",
+              "quantity": "3",
+              "note": "Mark routes"
+            }
+          },
+          {
+            "before": {
+              "item": "flint",
+              "location": "south",
+              "quantity": "4",
+              "note": ""
+            },
+            "after": null
+          },
+          {
+            "before": {
+              "item": "lamp",
+              "location": "north",
+              "quantity": "1",
+              "note": "Oil, spare wick"
+            },
+            "after": {
+              "item": "lamp",
+              "location": "north",
+              "quantity": "2",
+              "note": "Oil, spare wick"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CSV apply inventory patch",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-patch/patch.py",
+        "apply",
+        "line-2/tools/csv-reconcile/demo-before.csv",
+        "test/scratch/gathering28/inventory-plan.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": "item,location,quantity,note\nchalk,south,3,Mark routes\nlamp,north,2,\"Oil, spare wick\"\nrope,north,2,Keep dry\n"
+    },
+    {
+      "name": "CSV applied inventory matches target",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-reconcile/reconcile.py",
+        "test/scratch/gathering28/inventory.csv",
+        "line-2/tools/csv-reconcile/demo-after.csv",
+        "--key",
+        "item",
+        "--key",
+        "location"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "added": [],
+        "ambiguous": [],
+        "changed": [],
+        "complete": true,
+        "equal": true,
+        "format": "csv-reconcile/v1",
+        "ignored_columns": [],
+        "keys": [
+          "item",
+          "location"
+        ],
+        "removed": [],
+        "schema": {
+          "added_columns": [],
+          "removed_columns": []
+        },
+        "summary": {
+          "added": 0,
+          "after_records": 3,
+          "ambiguous_keys": 0,
+          "before_records": 3,
+          "changed": 0,
+          "removed": 0,
+          "unchanged_on_common_columns": 3
+        }
+      }
+    },
+    {
+      "name": "Shared guarded import patch",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/patch.py",
+        "plan",
+        "shared/import-drift/observed-sentry.csv",
+        "shared/import-drift/observed-sentry23.csv",
+        "--key",
+        "module"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-patch/v1",
+        "keys": [
+          "module"
+        ],
+        "header": [
+          "module",
+          "path",
+          "entrypoint",
+          "local_imports",
+          "external_imports",
+          "unresolved_imports",
+          "dynamic_import_lines",
+          "parse_errors"
+        ],
+        "baseline_sha256": "ab697d029f9fcf123e5b959fbe3deebf6dfcdfc23c43b4df04bdc1d88ff9b812",
+        "result_sha256": "d95dc5aa82de2d965e3ec7b2d430f11aabfcf58dd1a5a41f66b55f35ae644276",
+        "operations": [
+          {
+            "before": {
+              "module": "test_sentry",
+              "path": "test_sentry.py",
+              "entrypoint": "true",
+              "local_imports": "[\"sentry\"]",
+              "external_imports": "[\"contextlib\",\"io\",\"json\",\"socket\",\"ssl\",\"unittest\"]",
+              "unresolved_imports": "[]",
+              "dynamic_import_lines": "[]",
+              "parse_errors": "[]"
+            },
+            "after": {
+              "module": "test_sentry",
+              "path": "test_sentry.py",
+              "entrypoint": "true",
+              "local_imports": "[\"sentry\"]",
+              "external_imports": "[\"contextlib\",\"io\",\"json\",\"socket\",\"ssl\",\"unittest\",\"unittest import mock\"]",
+              "unresolved_imports": "[]",
+              "dynamic_import_lines": "[]",
+              "parse_errors": "[]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shared validated patch HTML",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/patch_review.py",
+        "shared/import-drift/observed-sentry.csv",
+        "test/scratch/gathering28/import-plan.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "html_bytes": 2389,
+      "has_html_document": true
+    },
+    {
+      "name": "Shared review refuses stale baseline",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/patch_review.py",
+        "test/scratch/gathering28/stale.csv",
+        "test/scratch/gathering28/import-plan.json"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "{\"error\": \"baseline changed since review; create and review a new plan\"}\n",
+      "passed": true,
+      "output": ""
+    },
+    {
+      "name": "Cache Lens historical receipt",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/cache-lens/cache_lens.py",
+        "line-1/tools/cache-lens/observed-live.json",
+        "--shared"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "cache-lens/v1",
+        "cache_type": "shared",
+        "evaluated_at": "2026-10-15T19:03:35.002042+00:00",
+        "verdict": "within_freshness_lifetime",
+        "freshness_lifetime_seconds": 10,
+        "lifetime_source": "max-age",
+        "current_age_seconds": 1.002042,
+        "remaining_seconds": 8.997958,
+        "validators_present": {
+          "etag": false,
+          "last_modified": false
+        },
+        "stale_reuse_requires_validation": false,
+        "warnings": [],
+        "scope": "Freshness metadata only; not permission to store or reuse a response. Request directives, Vary matching, authorization, cache keys and stale extensions are not evaluated. No conditional request is sent."
+      }
+    },
+    {
+      "name": "Cache Lens historical expiry",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/cache-lens/cache_lens.py",
+        "line-1/tools/cache-lens/observed-live.json",
+        "--shared",
+        "--at",
+        "2026-10-15T19:03:45Z"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "cache-lens/v1",
+        "cache_type": "shared",
+        "evaluated_at": "2026-10-15T19:03:45+00:00",
+        "verdict": "stale",
+        "freshness_lifetime_seconds": 10,
+        "lifetime_source": "max-age",
+        "current_age_seconds": 11.0,
+        "remaining_seconds": 0,
+        "validators_present": {
+          "etag": false,
+          "last_modified": false
+        },
+        "stale_reuse_requires_validation": false,
+        "warnings": [],
+        "scope": "Freshness metadata only; not permission to store or reuse a response. Request directives, Vary matching, authorization, cache keys and stale extensions are not evaluated. No conditional request is sent."
+      }
+    },
+    {
+      "name": "Import Boundaries fixture",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-boundaries/boundaries.py",
+        "line-3/tools/import-boundaries/examples",
+        "--strict",
+        "--json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "depth": 1,
+        "groups": [
+          {
+            "name": "domain",
+            "modules": [
+              "domain.model",
+              "domain.service"
+            ]
+          },
+          {
+            "name": "storage",
+            "modules": [
+              "storage.store"
+            ]
+          },
+          {
+            "name": "ui",
+            "modules": [
+              "ui.main"
+            ]
+          }
+        ],
+        "boundaries": [
+          {
+            "from": "domain",
+            "to": "storage",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "domain.service",
+                "to": "storage.store",
+                "path": "domain/service.py",
+                "occurrences": [
+                  {
+                    "line": 2,
+                    "target": "storage import store"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "from": "ui",
+            "to": "domain",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "ui.main",
+                "to": "domain.service",
+                "path": "ui/main.py",
+                "occurrences": [
+                  {
+                    "line": 1,
+                    "target": "domain import service"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "from": "ui",
+            "to": "storage",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "ui.main",
+                "to": "storage.store",
+                "path": "ui/main.py",
+                "occurrences": [
+                  {
+                    "line": 2,
+                    "target": "storage import store"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "deny_rules": [],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 4,
+          "group_count": 3,
+          "internal_edge_count": 1,
+          "crossing_edge_count": 3,
+          "boundary_count": 3,
+          "violating_edge_count": 0
+        },
+        "scope": "Explicit static local imports only; groups are dotted prefixes, not inferred architecture. Missing edges are not proof of isolation. Package initialization, dynamic imports, external callers and runtime conditions are not modeled."
+      }
+    },
+    {
+      "name": "Import Boundaries denied edge",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-boundaries/boundaries.py",
+        "line-3/tools/import-boundaries/examples",
+        "--deny",
+        "ui:storage",
+        "--json"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "depth": 1,
+        "groups": [
+          {
+            "name": "domain",
+            "modules": [
+              "domain.model",
+              "domain.service"
+            ]
+          },
+          {
+            "name": "storage",
+            "modules": [
+              "storage.store"
+            ]
+          },
+          {
+            "name": "ui",
+            "modules": [
+              "ui.main"
+            ]
+          }
+        ],
+        "boundaries": [
+          {
+            "from": "domain",
+            "to": "storage",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "domain.service",
+                "to": "storage.store",
+                "path": "domain/service.py",
+                "occurrences": [
+                  {
+                    "line": 2,
+                    "target": "storage import store"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "from": "ui",
+            "to": "domain",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "ui.main",
+                "to": "domain.service",
+                "path": "ui/main.py",
+                "occurrences": [
+                  {
+                    "line": 1,
+                    "target": "domain import service"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "from": "ui",
+            "to": "storage",
+            "denied": true,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "ui.main",
+                "to": "storage.store",
+                "path": "ui/main.py",
+                "occurrences": [
+                  {
+                    "line": 2,
+                    "target": "storage import store"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "deny_rules": [
+          {
+            "from": "ui",
+            "to": "storage"
+          }
+        ],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 4,
+          "group_count": 3,
+          "internal_edge_count": 1,
+          "crossing_edge_count": 3,
+          "boundary_count": 3,
+          "violating_edge_count": 1
+        },
+        "scope": "Explicit static local imports only; groups are dotted prefixes, not inferred architecture. Missing edges are not proof of isolation. Package initialization, dynamic imports, external callers and runtime conditions are not modeled."
+      }
+    },
+    {
+      "name": "Import Boundaries real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-boundaries/boundaries.py",
+        "line-1/tools/deadline-sentry",
+        "--strict",
+        "--json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "depth": 1,
+        "groups": [
+          {
+            "name": "deadline_sentry",
+            "modules": [
+              "deadline_sentry"
+            ]
+          },
+          {
+            "name": "test_deadline_sentry",
+            "modules": [
+              "test_deadline_sentry"
+            ]
+          }
+        ],
+        "boundaries": [
+          {
+            "from": "test_deadline_sentry",
+            "to": "deadline_sentry",
+            "denied": false,
+            "module_edge_count": 1,
+            "edges": [
+              {
+                "from": "test_deadline_sentry",
+                "to": "deadline_sentry",
+                "path": "test_deadline_sentry.py",
+                "occurrences": [
+                  {
+                    "line": 10,
+                    "target": "deadline_sentry"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "deny_rules": [],
+        "issues": [],
+        "cycles": [],
+        "dynamic_imports": [],
+        "summary": {
+          "module_count": 2,
+          "group_count": 2,
+          "internal_edge_count": 0,
+          "crossing_edge_count": 1,
+          "boundary_count": 1,
+          "violating_edge_count": 0
+        },
+        "scope": "Explicit static local imports only; groups are dotted prefixes, not inferred architecture. Missing edges are not proof of isolation. Package initialization, dynamic imports, external callers and runtime conditions are not modeled."
+      }
+    },
+    {
+      "name": "CSV patch compact inspection",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-patch/patch.py",
+        "inspect",
+        "line-2/tools/csv-reconcile/demo-before.csv",
+        "test/scratch/gathering28/inventory-plan.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-patch/v1",
+        "keys": [
+          "item",
+          "location"
+        ],
+        "baseline_sha256": "f5a06fd7f62ad319d558d2fd5f7d974b93e201178d559a11df8d6ddacd15c6e3",
+        "result_sha256": "109cca65c5ed2691f11ff1d6ff44acaadda4262f6a0eabecf2d427bad7610659",
+        "operations": {
+          "added": 1,
+          "removed": 1,
+          "changed": 1,
+          "total": 3
+        },
+        "valid": true
+      }
+    },
+    {
+      "name": "Shared CSV patch compact inspection",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/patch.py",
+        "inspect",
+        "shared/import-drift/observed-sentry.csv",
+        "test/scratch/gathering28/import-plan.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-patch/v1",
+        "keys": [
+          "module"
+        ],
+        "baseline_sha256": "ab697d029f9fcf123e5b959fbe3deebf6dfcdfc23c43b4df04bdc1d88ff9b812",
+        "result_sha256": "d95dc5aa82de2d965e3ec7b2d430f11aabfcf58dd1a5a41f66b55f35ae644276",
+        "operations": {
+          "added": 0,
+          "removed": 0,
+          "changed": 1,
+          "total": 1
+        },
+        "valid": true
+      }
+    },
+    {
+      "name": "HTTP evidence receipt snapshot",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/http-evidence/http_evidence.py",
+        "snapshot",
+        "shared/http-evidence/observed-report.json",
+        "--shared"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": "url,final_url,probe_ok,status,body_sha256,cache_type,evaluated_at,verdict,current_age_seconds,freshness_lifetime_seconds,remaining_seconds,warnings,source_sha256\nhttps://api.imd.fun/launches,https://api.imd.fun/launches,true,200,5ec0acb0fd0b0f0dceb68f8cf55b3ec6e399dcaf3fa928e3b1d35479724f85c4,shared,2026-10-15T19:03:35.002042+00:00,within_freshness_lifetime,1.002042,10,8.997958,[],b272199daa64e8d6d15efb3a198c456527e2445c18a806fee9636cfd9494cff5\n"
+    },
+    {
+      "name": "HTTP evidence exact freshness review",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/http-evidence/http_evidence.py",
+        "compare",
+        "shared/http-evidence/observed-receipt.csv",
+        "shared/http-evidence/observed-expired.csv"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-reconcile/v1",
+        "keys": [
+          "url"
+        ],
+        "ignored_columns": [],
+        "equal": false,
+        "complete": true,
+        "schema": {
+          "added_columns": [],
+          "removed_columns": []
+        },
+        "summary": {
+          "before_records": 1,
+          "after_records": 1,
+          "added": 0,
+          "removed": 0,
+          "changed": 1,
+          "unchanged_on_common_columns": 0,
+          "ambiguous_keys": 0
+        },
+        "added": [],
+        "removed": [],
+        "changed": [
+          {
+            "key": {
+              "url": "https://api.imd.fun/launches"
+            },
+            "before_record": 2,
+            "after_record": 2,
+            "fields": {
+              "current_age_seconds": {
+                "before": "1.002042",
+                "after": "11.0"
+              },
+              "evaluated_at": {
+                "before": "2026-10-15T19:03:35.002042+00:00",
+                "after": "2026-10-15T19:03:45+00:00"
+              },
+              "remaining_seconds": {
+                "before": "8.997958",
+                "after": "0"
+              },
+              "verdict": {
+                "before": "within_freshness_lifetime",
+                "after": "stale"
+              }
+            }
+          }
+        ],
+        "ambiguous": []
+      }
+    },
+    {
+      "name": "Probe Triage missing public route",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/probe-triage/probe_triage.py",
+        "line-1/tools/probe-triage/observed-404.json",
+        "--check"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "probe-triage/v1",
+        "source_schema": "endpoint-sentry/v1",
+        "observed_ok": false,
+        "assessment": "needs_attention",
+        "findings": [
+          {
+            "code": "http_status",
+            "evidence": "/checks/0",
+            "observation": "HTTP 404 was observed; HTTP 200 was expected.",
+            "next_step": "Verify the exact documented route; a missing route does not establish an origin outage."
+          }
+        ],
+        "limits": [
+          "Saved evidence only; no new request or retry was made.",
+          "A passing observation is not an availability, freshness or root-cause guarantee.",
+          "Evidence pointers refer to the original input document."
+        ]
+      }
+    },
+    {
+      "name": "Probe Triage retained health",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-1/tools/probe-triage/probe_triage.py",
+        "line-1/tools/probe-triage/observed-live.json",
+        "--check"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "probe-triage/v1",
+        "source_schema": "deadline-sentry/v1",
+        "observed_ok": true,
+        "assessment": "checks_passed",
+        "findings": [],
+        "limits": [
+          "Saved evidence only; no new request or retry was made.",
+          "A passing observation is not an availability, freshness or root-cause guarantee.",
+          "Evidence pointers refer to the original input document."
+        ]
+      }
+    },
+    {
+      "name": "CSV explicitly renamed composite key",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-2/tools/csv-align/align.py",
+        "line-2/tools/csv-align/demo-before.csv",
+        "line-2/tools/csv-align/demo-after.csv",
+        "--key",
+        "item",
+        "--key",
+        "location",
+        "--map",
+        "item",
+        "sku"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "format": "csv-align/v1",
+        "equal": false,
+        "complete": true,
+        "keys": [
+          {
+            "before": "item",
+            "after": "sku"
+          },
+          {
+            "before": "location",
+            "after": "location"
+          }
+        ],
+        "schema": {
+          "paired_columns": [
+            {
+              "before": "item",
+              "after": "sku",
+              "explicit": true
+            },
+            {
+              "before": "location",
+              "after": "location",
+              "explicit": false
+            },
+            {
+              "before": "quantity",
+              "after": "quantity",
+              "explicit": false
+            }
+          ],
+          "removed_before_columns": [],
+          "added_after_columns": []
+        },
+        "summary": {
+          "before_records": 3,
+          "after_records": 3,
+          "added": 1,
+          "removed": 1,
+          "changed": 1,
+          "unchanged": 1,
+          "ambiguous_keys": 0
+        },
+        "added": [
+          {
+            "key": {
+              "item": "chalk",
+              "location": "cave"
+            },
+            "after_record": 2,
+            "after_values": {
+              "sku": "chalk",
+              "location": "cave",
+              "quantity": "3"
+            }
+          }
+        ],
+        "removed": [
+          {
+            "key": {
+              "item": "flint",
+              "location": "cave"
+            },
+            "before_record": 2,
+            "before_values": {
+              "item": "flint",
+              "location": "cave",
+              "quantity": "2"
+            }
+          }
+        ],
+        "changed": [
+          {
+            "key": {
+              "item": "lamp",
+              "location": "cave"
+            },
+            "before_record": 3,
+            "after_record": 3,
+            "fields": [
+              {
+                "before_column": "quantity",
+                "after_column": "quantity",
+                "before": "1",
+                "after": "2"
+              }
+            ]
+          }
+        ],
+        "ambiguous": []
+      }
+    },
+    {
+      "name": "Import Budget real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "line-1/tools/deadline-sentry",
+        "--json",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "status": "complete",
+        "limits": {
+          "files": 1000,
+          "file_bytes": 262144,
+          "total_bytes": 8388608,
+          "entries": 20000,
+          "depth": 64
+        },
+        "inventory": {
+          "files": 2,
+          "bytes": 7132,
+          "entries": 3,
+          "skipped_symlinks": 0,
+          "skipped_directories": 0,
+          "skipped_nonregular": 0,
+          "manifest": [
+            {
+              "path": "deadline_sentry.py",
+              "bytes": 3397,
+              "sha256": "454f100a6be14802d26cbae5cd1f63f0bb52864a8c531bd3b147c48471f8f524"
+            },
+            {
+              "path": "test_deadline_sentry.py",
+              "bytes": 3735,
+              "sha256": "57eab0445e8dd4654ff3e4b0440004def1f2b9ce7a03aedfb03d8842983e3518"
+            }
+          ]
+        },
+        "map": {
+          "modules": [
+            {
+              "module": "deadline_sentry",
+              "path": "deadline_sentry.py",
+              "entrypoint": true,
+              "imports": [
+                {
+                  "line": 3,
+                  "target": "argparse",
+                  "kind": "external"
+                },
+                {
+                  "line": 4,
+                  "target": "json",
+                  "kind": "external"
+                },
+                {
+                  "line": 5,
+                  "target": "math",
+                  "kind": "external"
+                },
+                {
+                  "line": 6,
+                  "target": "pathlib import Path",
+                  "kind": "external"
+                },
+                {
+                  "line": 7,
+                  "target": "subprocess",
+                  "kind": "external"
+                },
+                {
+                  "line": 8,
+                  "target": "sys",
+                  "kind": "external"
+                },
+                {
+                  "line": 9,
+                  "target": "time",
+                  "kind": "external"
+                }
+              ],
+              "dynamic_import_lines": []
+            },
+            {
+              "module": "test_deadline_sentry",
+              "path": "test_deadline_sentry.py",
+              "entrypoint": true,
+              "imports": [
+                {
+                  "line": 2,
+                  "target": "contextlib",
+                  "kind": "external"
+                },
+                {
+                  "line": 3,
+                  "target": "io",
+                  "kind": "external"
+                },
+                {
+                  "line": 4,
+                  "target": "json",
+                  "kind": "external"
+                },
+                {
+                  "line": 5,
+                  "target": "subprocess",
+                  "kind": "external"
+                },
+                {
+                  "line": 6,
+                  "target": "sys",
+                  "kind": "external"
+                },
+                {
+                  "line": 7,
+                  "target": "time",
+                  "kind": "external"
+                },
+                {
+                  "line": 8,
+                  "target": "unittest",
+                  "kind": "external"
+                },
+                {
+                  "line": 10,
+                  "target": "deadline_sentry",
+                  "kind": "local",
+                  "resolved": "deadline_sentry"
+                }
+              ],
+              "dynamic_import_lines": []
+            }
+          ],
+          "edges": [
+            {
+              "from": "test_deadline_sentry",
+              "to": "deadline_sentry"
+            }
+          ],
+          "cycles": [],
+          "issues": [],
+          "summary": {
+            "module_count": 2,
+            "local_edge_count": 1,
+            "cycle_count": 0,
+            "issue_count": 0,
+            "entrypoints": [
+              "deadline_sentry",
+              "test_deadline_sentry"
+            ]
+          }
+        },
+        "scope": "Complete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees."
+      }
+    },
+    {
+      "name": "Import Budget refuses partial collection",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-3/tools/import-budget/budget.py",
+        "line-1/tools/deadline-sentry",
+        "--json",
+        "--max-files",
+        "1"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "status": "refused",
+        "error": {
+          "type": "budget_exceeded",
+          "budget": "files",
+          "limit": 1,
+          "observed": 2,
+          "path": "test_deadline_sentry.py"
+        }
+      }
+    },
+    {
+      "name": "ABI explicit overload published layout",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "encode",
+        "--abi",
+        "line-4/tools/abi-workbench/overload-example.json",
+        "--function",
+        "bar(bytes3[2])",
+        "--args",
+        "[[\"0x616263\",\"0x646566\"]]"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "signature": "bar(bytes3[2])",
+        "selector": "0xfce353f6",
+        "calldata": "0xfce353f661626300000000000000000000000000000000000000000000000000000000006465660000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "name": "ABI refuses ambiguous bare name",
+      "command": [
+        "python3.11",
+        "-B",
+        "line-4/tools/abi-workbench/abi_workbench.py",
+        "encode",
+        "--abi",
+        "line-4/tools/abi-workbench/overload-example.json",
+        "--function",
+        "bar",
+        "--args",
+        "[[\"0x616263\",\"0x646566\"]]"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "error: expected exactly one ABI function matching 'bar'; found 2; use --function with an explicit signature to select an overload\n",
+      "passed": true,
+      "output": ""
+    },
+    {
+      "name": "Shared bounded import snapshot real worker",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/bounded_snapshot.py",
+        "line-1/tools/endpoint-sentry"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "{\"cycles\": [], \"dynamic_imports\": [], \"inventory\": {\"bytes\": 21769, \"entries\": 5, \"files\": 2, \"manifest\": [{\"bytes\": 12235, \"path\": \"sentry.py\", \"sha256\": \"799711f0df6f3ee72d2dc36a4d8343227990345c1395ef269854121f5b43e11f\"}, {\"bytes\": 9534, \"path\": \"test_sentry.py\", \"sha256\": \"582e893d6717fd1782a45ed19a9381e8914f8b48854e8c3fb9b441b8535262e7\"}], \"skipped_directories\": 0, \"skipped_nonregular\": 0, \"skipped_symlinks\": 0}, \"issues\": [], \"limits\": {\"depth\": 64, \"entries\": 20000, \"file_bytes\": 262144, \"files\": 1000, \"total_bytes\": 8388608}, \"schema\": \"bounded-import-csv/v1\", \"scope\": \"Complete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees.\", \"status\": \"complete\", \"summary\": {\"cycle_count\": 0, \"entrypoints\": [\"sentry\", \"test_sentry\"], \"issue_count\": 0, \"local_edge_count\": 1, \"module_count\": 2}}\n",
+      "passed": true,
+      "output": "module,path,entrypoint,local_imports,external_imports,unresolved_imports,dynamic_import_lines,parse_errors\nsentry,sentry.py,true,[],\"[\"\"argparse\"\",\"\"datetime\"\",\"\"hashlib\"\",\"\"http.client\"\",\"\"json\"\",\"\"math\"\",\"\"socket\"\",\"\"ssl\"\",\"\"sys\"\",\"\"time\"\",\"\"urllib.parse\"\"]\",[],[],[]\ntest_sentry,test_sentry.py,true,\"[\"\"sentry\"\"]\",\"[\"\"contextlib\"\",\"\"io\"\",\"\"json\"\",\"\"socket\"\",\"\"ssl\"\",\"\"unittest\"\",\"\"unittest import mock\"\"]\",[],[],[]\n"
+    },
+    {
+      "name": "Shared bounded import keyed review",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/checked_review.py",
+        "shared/import-drift/observed-sentry23.csv",
+        "test/scratch/gathering28/bounded.csv",
+        "--key",
+        "module"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "passed": true,
+      "output": {
+        "schema": "checked-csv-review/v1",
+        "ready": true,
+        "key_audit": {
+          "format": "csv-key-audit/v1",
+          "keys": [
+            "module"
+          ],
+          "passes": true,
+          "example_limit": 5,
+          "datasets": [
+            {
+              "input_index": 0,
+              "input": "shared/import-drift/observed-sentry23.csv",
+              "records": 2,
+              "distinct_keys": 2,
+              "eligible_keys": 2,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0
+            },
+            {
+              "input_index": 1,
+              "input": "test/scratch/gathering28/bounded.csv",
+              "records": 2,
+              "distinct_keys": 2,
+              "eligible_keys": 2,
+              "passes": true,
+              "issues": [],
+              "empty_key_records": 0,
+              "empty_key_groups": 0,
+              "empty_examples": [],
+              "omitted_empty_groups": 0,
+              "duplicate_groups": 0,
+              "duplicate_records": 0,
+              "duplicate_examples": [],
+              "omitted_duplicate_groups": 0,
+              "overlap_with_first": {
+                "shared_eligible_keys": 2,
+                "only_first": 0,
+                "only_this": 0
+              }
+            }
+          ],
+          "caution": "Unique nonempty keys in these files do not prove stable identity across exports."
+        },
+        "comparison": {
+          "format": "csv-reconcile/v1",
+          "keys": [
+            "module"
+          ],
+          "ignored_columns": [],
+          "equal": true,
+          "complete": true,
+          "schema": {
+            "added_columns": [],
+            "removed_columns": []
+          },
+          "summary": {
+            "before_records": 2,
+            "after_records": 2,
+            "added": 0,
+            "removed": 0,
+            "changed": 0,
+            "unchanged_on_common_columns": 2,
+            "ambiguous_keys": 0
+          },
+          "added": [],
+          "removed": [],
+          "changed": [],
+          "ambiguous": []
+        }
+      }
+    },
+    {
+      "name": "Shared bounded collection refuses partial CSV",
+      "command": [
+        "python3.11",
+        "-B",
+        "shared/import-drift/bounded_snapshot.py",
+        "line-1/tools/endpoint-sentry",
+        "--max-files",
+        "1"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stderr": "{\"schema\": \"bounded-import-csv/v1\", \"status\": \"refused\", \"error\": {\"type\": \"budget_exceeded\", \"budget\": \"files\", \"limit\": 1, \"observed\": 2, \"path\": \"sentry.py\"}}\n",
+      "passed": true,
+      "output": ""
+    }
+  ],
+  "token_historical_csv_byte_identical": true
+}

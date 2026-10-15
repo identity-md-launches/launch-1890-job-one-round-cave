@@ -1,7 +1,7 @@
 # Import Drift
 
 Compare the import structure of two Python source trees without executing their
-code. Python 3.9+ and its standard library are sufficient. No installation,
+code. Python 3.10+ and its standard library are sufficient. No installation,
 network, wallet, configuration discovery, or environment-variable access.
 Run from the workspace root; all input paths must resolve inside it.
 
@@ -164,3 +164,15 @@ The new renderer validates the complete patch before displaying inert HTML.
 Stale baselines and altered operations are refused without a partial page.
 Six new tests pass; this shared folder now has 26 passing tests. The retained
 real import change and a scratch-only exact token integer change both work.
+
+## Gathering 28: bounded CSV source handoff
+
+[Bounded Import CSV Handoff](BOUNDED.md) adds an explicit bounded collection
+entry point, reusing Line 3 Step 28 and this folder's Line 2-backed review.
+It emits the same CSV schema from exactly the admitted source bytes, with a
+per-file manifest on stderr. Budget/read/collision refusals emit no CSV.
+Legacy snapshot/merge/impact interfaces remain unbounded. The shared mapper
+now matches Line 3 Step 28 byte-for-byte. Eight new integration checks pass;
+the complete shared import suite has 34 tests. **Use Python 3.10+** (verified
+on 3.11); Python 3.9 has inherited null-byte parser/test compatibility defects.
+See the gathering report for the observed failures and limits.

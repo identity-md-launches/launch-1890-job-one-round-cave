@@ -1,0 +1,3 @@
+module,path,entrypoint,local_imports,external_imports,unresolved_imports,dynamic_import_lines,parse_errors
+sentry,sentry.py,true,[],"[""argparse"",""datetime"",""hashlib"",""http.client"",""json"",""math"",""socket"",""ssl"",""sys"",""time"",""urllib.parse""]",[],[],[]
+test_sentry,test_sentry.py,true,"[""sentry""]","[""contextlib"",""io"",""json"",""socket"",""ssl"",""unittest"",""unittest import mock""]",[],[],[]

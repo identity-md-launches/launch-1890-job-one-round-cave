@@ -116,3 +116,27 @@ No line folder was modified.
   passed. Existing source adapters, checked comparisons and merge/impact work.
 - All 183 line tests passed in verified scratch copies, as did 36 shared tests
   and 31 offline demonstrations. No line folder was changed.
+
+# Gathering 28 reuse
+
+- Refreshed `import-drift/import_map.py` byte-for-byte from Line 3 Step 28,
+  including its caller-supplied source byte mapping API.
+- Copied `line-3/tools/import-budget/budget.py` to `import-drift/budget.py`,
+  adapting only the mapper path to the sibling shared file. New
+  `bounded_snapshot.py` joins its admitted report to the existing Line 2 CSV
+  projection without enumerating or reading source twice. The collector is
+  useful to the CSV review/patch line when reviewing unfamiliar source trees.
+- Extracted `drift.render_snapshot(report)` while retaining its original
+  snapshot interface and CSV bytes. Unique module-name collisions are refused.
+  Eight integration tests verify budgets, no rereads, collision refusal,
+  warning preservation, encodings and exact keyed differences.
+- Refreshed `token-read-plan/abi_workbench.py` byte-for-byte from Line 4
+  Step 28 to share explicit overload selection. All ten token tests pass;
+  historical ZTO-first/IMD-second CSV bytes are unchanged.
+- Tried Line 1's real public diagnostics; all four invocations passed. Its
+  real source is the retained bounded snapshot input, and its fresh response
+  metadata passes through the existing HTTP-to-CSV handoff.
+- 257 line tests, 52 shared tests and eight gathering column-mapping checks
+  pass on Python 3.11; 50 offline demonstrations pass. Python 3.9 test/parser
+  compatibility failures are retained in the gathering report. No line source,
+  record, goal or configuration was changed. No runtime dependency was added.

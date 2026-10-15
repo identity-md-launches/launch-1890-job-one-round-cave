@@ -7,17 +7,18 @@ Only output evidence under gathering/ and temporary data under test/scratch/.
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 
 def main():
-    scratch = Path('test/scratch/gathering27')
+    scratch = Path('test/scratch/gathering28')
     scratch.mkdir(parents=True, exist_ok=True)
     results = []
 
     def run(name, script, args, expected=0, html=False):
-        command = ['python3', '-B', script, *args]
+        command = [sys.executable, '-B', script, *args]
         result = subprocess.run(command, capture_output=True, text=True, timeout=15)
-        evidence = {'name': name, 'command': command, 'exit_code': result.returncode,
+        evidence = {'name': name, 'command': ['python3.' + str(sys.version_info.minor)] + command[1:], 'exit_code': result.returncode,
                     'expected_exit_code': expected, 'stderr': result.stderr,
                     'passed': result.returncode == expected}
         if html:
@@ -127,9 +128,35 @@ def main():
     run('HTTP evidence exact freshness review', 'shared/http-evidence/http_evidence.py',
         ['compare', 'shared/http-evidence/observed-receipt.csv',
          'shared/http-evidence/observed-expired.csv'], 1)
+    run('Probe Triage missing public route', 'line-1/tools/probe-triage/probe_triage.py',
+        ['line-1/tools/probe-triage/observed-404.json', '--check'], 1)
+    run('Probe Triage retained health', 'line-1/tools/probe-triage/probe_triage.py',
+        ['line-1/tools/probe-triage/observed-live.json', '--check'])
+    run('CSV explicitly renamed composite key', 'line-2/tools/csv-align/align.py',
+        ['line-2/tools/csv-align/demo-before.csv', 'line-2/tools/csv-align/demo-after.csv',
+         '--key', 'item', '--key', 'location', '--map', 'item', 'sku'], 1)
+    run('Import Budget real worker', 'line-3/tools/import-budget/budget.py',
+        ['line-1/tools/deadline-sentry', '--json', '--strict'])
+    run('Import Budget refuses partial collection', 'line-3/tools/import-budget/budget.py',
+        ['line-1/tools/deadline-sentry', '--json', '--max-files', '1'], 2)
+    run('ABI explicit overload published layout', abi,
+        ['encode', '--abi', 'line-4/tools/abi-workbench/overload-example.json',
+         '--function', 'bar(bytes3[2])', '--args', '[["0x616263","0x646566"]]'])
+    run('ABI refuses ambiguous bare name', abi,
+        ['encode', '--abi', 'line-4/tools/abi-workbench/overload-example.json',
+         '--function', 'bar', '--args', '[["0x616263","0x646566"]]'], 2)
+    bounded = run('Shared bounded import snapshot real worker',
+        'shared/import-drift/bounded_snapshot.py', ['line-1/tools/endpoint-sentry'])
+    bounded_path = scratch / 'bounded.csv'
+    bounded_path.write_text(bounded)
+    assert bounded == snap
+    run('Shared bounded import keyed review', 'shared/import-drift/checked_review.py',
+        ['shared/import-drift/observed-sentry23.csv', str(bounded_path), '--key', 'module'])
+    run('Shared bounded collection refuses partial CSV', 'shared/import-drift/bounded_snapshot.py',
+        ['line-1/tools/endpoint-sentry', '--max-files', '1'], 2)
     report = {'ok': all(item['passed'] for item in results), 'results': results,
               'token_historical_csv_byte_identical': True}
-    Path('gathering/integration-checks27.json').write_text(json.dumps(report, indent=2) + '\n')
+    Path('gathering/integration-checks28.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps({'ok': report['ok'], 'checks': len(results),
                       'failed': [r['name'] for r in results if not r['passed']]}, indent=2))
     return 0 if report['ok'] else 1

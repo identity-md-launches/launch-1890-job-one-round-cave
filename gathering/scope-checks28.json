@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "line_files_and_records_unchanged": true,
+  "allowed_changed_paths": true,
+  "modified_files_below_100000_bytes": true,
+  "changed_or_new_source_paths": 37,
+  "wall_untracked": true
+}

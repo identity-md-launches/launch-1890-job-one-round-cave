@@ -33,6 +33,13 @@ def snapshot(root):
             raise ValueError(f'module name collision: {names[name]} and {path.relative_to(root)}')
         names[name] = path.relative_to(root)
     report = import_map.inspect(root)
+    return render_snapshot(report), report
+
+
+def render_snapshot(report):
+    """Render an already collected map without reading source a second time."""
+    if any(issue['type'] == 'module_collision' for issue in report['issues']):
+        raise ValueError('module name collision cannot be represented by unique CSV keys')
     stream = io.StringIO(newline='')
     writer = csv.DictWriter(stream, fieldnames=FIELDS, lineterminator='\n')
     writer.writeheader()
@@ -57,7 +64,7 @@ def snapshot(root):
             row[field] = json.dumps(values, ensure_ascii=False, sort_keys=True,
                                     separators=(',', ':'))
         writer.writerow(row)
-    return stream.getvalue(), report
+    return stream.getvalue()
 
 
 def compare(before, after):

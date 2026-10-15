@@ -6,19 +6,19 @@
       1254
     ],
     "format": "PNG",
-    "sha256": "e7256a320723e099c335136fa81c573d4a55d1076f1f0cf231c1bc596618bfec",
-    "bytes": 4001224
+    "sha256": "0a0d20b87837000a197558fff5edcdded6a11e65fbe13fa6ba95494ed5b177b8",
+    "bytes": 4001849
   },
   "jpeg": {
     "dimensions": [
       512,
       512
     ],
-    "bytes": 67208
+    "bytes": 67245
   },
-  "gallery_records": 135,
-  "painted_previews": 35,
+  "gallery_records": 140,
+  "painted_previews": 40,
   "placeholders": 100,
-  "gallery_bytes": 99751,
+  "gallery_bytes": 99357,
   "visual_certification": false
 }

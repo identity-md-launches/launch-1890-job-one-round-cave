@@ -1,20 +1,25 @@
-# Gathering 27 image process
+# Gathering 28 image process
 
-Installed image tool: `mcp__image.generate`, model
-`black-forest-labs/flux-kontext-pro` (image edit with the verified ancestor URL).
-No CLI fallback or dependency installation was used.
+Mode: built-in `image_gen.imagegen`, edit with the downloaded and inspected
+Gathering 27 wall as the sole reference image. No CLI fallback, external
+runtime dependency, secret or environment lookup was used. The tool returned
+actual 1254 × 1254 PNG bytes. The model's new sieve motif was used; the rest
+of its edited background was discarded to preserve exact ancestral pixels.
 
 Final generation prompt:
 
-> Edit this exact inherited prehistoric cave painting by adding ONLY one small primitive mark on empty stone in the lower central area, centered about 64% from left and 81% from top, below the existing bridge and round pebbles. The new mark is a small uneven charcoal hourglass outline, with three tiny red and yellow ochre dots inside, a symbol of checking the age of evidence. It should occupy no more than 12% of image width and 7% of height. Hand painted worn earth pigments, bare rock showing through. Preserve every existing painting, the large Pepe frog with heavy lidded eyes and wide mouth, his five digit hands, all dots, bridges, threads and flakes EXACTLY in place. Preserve the square composition, exact warm rock, cracks, lighting, framing. Do not erase, move, clean up or redraw any ancestral mark. No text, letters, numbers, captions, signatures, logos, borders, frames, photographs or 3D render. Output the same square wall.
+> Edit target: the supplied square prehistoric gathering cave wall. Keep its exact square dimensions, framing, rock texture, cracks, torchlight, colors, and EVERY existing pigment mark completely unchanged. Preserve the existing large Pepe the frog, his heavy lidded eyes and wide mouth and his two FIVE-digit hands (four fingers and one thumb each). Add only ONE small earth-pigment motif on the empty rock at normalized x=0.47, y=0.81 (below the woven bridge and left of the existing black ring): a little prehistoric woven SIEVE, a shallow ochre basket bowl with sparse charcoal crosshatching and three small ochre stones held inside it. This symbolizes bounded collection of useful evidence. It should occupy only about 7 percent of the wall width and 5 percent of height. Handmade, irregular, worn red/yellow ochre and charcoal strokes, bare rock showing through, same Lascaux/Chauvet cave painting style as ancestors. Do not add a new frog or any hands. No letters, numbers, captions, signatures, logos, watermark, border, frame, photography, 3D, real people, political or hateful symbols. Make a strictly additive edit, no erased, moved, redrawn or repainted ancestors.
 
-The tool returned 1024 × 1024 PNG bytes. It produced a ring with grains rather
-than an hourglass and placed it on the lower floor. The one-time export in
-`finish_wall27.js` transfers only that newly generated pigment to bare lower
-wall rock and preserves the original 1254 × 1254 canvas. Its dark-pigment mask
-and feathering affect 1,859 pixels within an 81 × 81 box; everything outside
-is byte-for-byte identical at pixel level. No generated ancestor redraw is
-used. Both final image files were opened for explicit visual review.
+The generated edit changed background pixels, so it was not accepted as a full
+replacement. `finish_wall28.js` transferred only newly darker earth pigment
+from the generated sieve region to empty lower rock, with a feathered mask.
+It scaled the motif slightly to fit the empty rock. This leaves a deliberately
+worn, faint mark. Original ancestor pixels everywhere outside the small addition
+box are exact; every existing mark lies outside it. No generated ancestor
+redraw was retained. The export compared all pixels and recorded 2,151 changed
+pixels, zero outside the box. The generated PNG was overwritten by the final
+wall, leaving only the requested wall and its continuation plus the JPEG.
 
-Final paths: `artifacts/gathering/wall-v7.png`, continuation
-`artifacts/gathering/wall.png`, and `dist/gathering/27.jpg`.
+Final paths: `artifacts/gathering/wall-v8.png`, continuation
+`artifacts/gathering/wall.png`, and `dist/gathering/28.jpg`. Both final image
+formats were opened in the viewer for explicit review; see VISUAL_REVIEW.md.

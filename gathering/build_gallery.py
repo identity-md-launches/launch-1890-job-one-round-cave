@@ -43,7 +43,7 @@ def main():
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>Pepeolithic · Ice</title><style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#1b160f;color:#f2e2c6;font:16px/1.6 system-ui,sans-serif}header,main,footer{max-width:1100px;margin:auto;padding:24px}h1{font-size:clamp(2.5rem,7vw,4rem);line-height:1.1}h2{font-size:1.8rem}a{color:#efbb72}a:focus-visible,summary:focus-visible{outline:3px solid #efbb72;outline-offset:4px}nav{display:flex;flex-wrap:wrap;gap:18px}section{margin:28px 0 60px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}.card{background:#2b2319;border:1px solid #695236;border-radius:8px;padding:20px}.card img{float:right;width:96px;height:96px;margin:0 0 12px 12px}details{margin-top:22px}summary{cursor:pointer}.future{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.future i{font-size:.85rem;padding:8px}.note{max-width:75ch;color:#cbbb9d}footer{border-top:1px solid #695236}
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#1b160f;color:#f2e2c6;font:16px/1.6 system-ui,sans-serif}header,main,footer{max-width:1100px;margin:auto;padding:24px}h1{font-size:clamp(2.5rem,7vw,4rem);line-height:1.1}h2{font-size:1.8rem}a{color:#efbb72}a:focus-visible,summary:focus-visible{outline:3px solid #efbb72;outline-offset:4px}nav{display:flex;flex-wrap:wrap;gap:18px}section{margin:28px 0 60px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}article{background:#2b2319;border:1px solid #695236;border-radius:8px;padding:20px}article img{float:right;width:96px;height:96px;margin:0 0 12px 12px}details{margin-top:22px}summary{cursor:pointer}.future{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.future i{font-size:.85rem;padding:8px}.note{max-width:75ch;color:#cbbb9d}footer{border-top:1px solid #695236}
 </style></head><body><header><p>Pepeolithic / Ice</p><h1>Four trails.<br>A shared measure.</h1>
 <p class="note">Four lines build worker tools. The gathering tests and connects them. Paintings appear newest first.</p><nav aria-label="Walls">''']
     walls = [('gathering', 'Gathering')] + [(f'line-{i}', f'Line {i}') for i in range(1, 5)]
@@ -62,26 +62,26 @@ def main():
             if not re.fullmatch(r'https://api\.imd\.fun/artifacts/[a-f0-9]{64}', image):
                 raise ValueError(f'invalid artifact URL: {key}')
             if record['name'] == 'Not painted yet':
-                future.append(f'<i data-record="{key}">{path.stem}</i>')
+                future.append(f'<i data-record={key}>{path.stem}</i>')
                 continue
             painted += 1
             if key not in previews:
                 # Current inputs are supplied PNGs. Older previews are retained
                 # from the existing gallery; a missing historical preview fails.
-                version = {'23': 'v3', '24': 'v4', '25': 'v5', '26': 'v6', '27': 'v7'}.get(path.stem)
+                version = {'23': 'v3', '24': 'v4', '25': 'v5', '26': 'v6', '27': 'v7', '28': 'v8'}.get(path.stem)
                 source = Path('artifacts', wall, f'wall-{version}.png') if version else None
-                if path.stem == '27' and wall != 'gathering':
+                if path.stem == '28' and wall != 'gathering':
                     source = Path('.imd/reads/artifacts', 'wall' + wall[-1])
                 if source is None or not source.is_file():
                     raise ValueError(f'missing embedded historical preview: {key}')
-                jpeg = subprocess.run(['node', 'gathering/thumbnail.js', str(source), '48', '20'],
+                jpeg = subprocess.run(['node', 'gathering/thumbnail.js', str(source), '32', '15'],
                                       capture_output=True, check=True).stdout
                 previews[key] = 'data:image/jpeg;base64,' + base64.b64encode(jpeg).decode('ascii')
             attrs = {a['trait_type']: a['value'] for a in record['attributes']}
             title = esc(record['name'])
-            chunks.append(f'<article class="card" data-record="{key}"><a href="{image}"><img src="{previews[key]}" width="96" height="96" alt="{title}" loading="lazy"></a><h3><a href="{key}">{path.stem} · {title}</a></h3><p>{esc(str(attrs.get("Meaning", "")))}</p><a href="{wall}/{path.stem}.jpg">512 px JPEG</a></article>')
+            chunks.append(f'<article data-record="{key}"><a href="{image}"><img src="{previews[key]}" width="96" height="96" alt=""></a><a href="{key}">{path.stem} · {title}</a></article>')
         chunks.append(f'</div><details><summary>Unpainted records · {len(future)}</summary><div class="future">' + ''.join(future) + '</div></details></section>')
-    chunks.append(f'</main><footer><p>{count} records · {painted} paintings · {count-painted} reserved slots.</p><p>All previews and styles are embedded and work offline. Full walls link to the artifact service. Test observations are local checks, not independent certification.</p><p><a href="../gathering/REPORT.md">Gathering report</a> · <a href="goals.json">Four goals</a> · <a href="../shared/import-drift/README.md">Shared import review</a></p></footer></body></html>')
+    chunks.append(f'</main><footer><p>{count} records · {painted} paintings · {count-painted} reserved slots.</p><p>Embedded previews work offline. Full walls open the artifact service. Records link to metadata; adjacent JPEGs are 512 px.</p><p><a href="../gathering/REPORT.md">Gathering report</a> · <a href="goals.json">Four goals</a> · <a href="../shared/import-drift/README.md">Shared import review</a></p></footer></body></html>')
     result = '\n'.join(chunks)
     if len(result.encode()) > 100000:
         raise ValueError(f'gallery exceeds 100 KB: {len(result.encode())} bytes')

@@ -1,0 +1,80 @@
+{
+  "schema": "checked-csv-review/v1",
+  "ready": true,
+  "key_audit": {
+    "format": "csv-key-audit/v1",
+    "keys": [
+      "module"
+    ],
+    "passes": true,
+    "example_limit": 5,
+    "datasets": [
+      {
+        "input_index": 0,
+        "input": "shared/import-drift/observed-sentry23.csv",
+        "records": 2,
+        "distinct_keys": 2,
+        "eligible_keys": 2,
+        "passes": true,
+        "issues": [],
+        "empty_key_records": 0,
+        "empty_key_groups": 0,
+        "empty_examples": [],
+        "omitted_empty_groups": 0,
+        "duplicate_groups": 0,
+        "duplicate_records": 0,
+        "duplicate_examples": [],
+        "omitted_duplicate_groups": 0
+      },
+      {
+        "input_index": 1,
+        "input": "shared/import-drift/observed-bounded28.csv",
+        "records": 2,
+        "distinct_keys": 2,
+        "eligible_keys": 2,
+        "passes": true,
+        "issues": [],
+        "empty_key_records": 0,
+        "empty_key_groups": 0,
+        "empty_examples": [],
+        "omitted_empty_groups": 0,
+        "duplicate_groups": 0,
+        "duplicate_records": 0,
+        "duplicate_examples": [],
+        "omitted_duplicate_groups": 0,
+        "overlap_with_first": {
+          "shared_eligible_keys": 2,
+          "only_first": 0,
+          "only_this": 0
+        }
+      }
+    ],
+    "caution": "Unique nonempty keys in these files do not prove stable identity across exports."
+  },
+  "comparison": {
+    "format": "csv-reconcile/v1",
+    "keys": [
+      "module"
+    ],
+    "ignored_columns": [],
+    "equal": true,
+    "complete": true,
+    "schema": {
+      "added_columns": [],
+      "removed_columns": []
+    },
+    "summary": {
+      "before_records": 2,
+      "after_records": 2,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "unchanged_on_common_columns": 2,
+      "ambiguous_keys": 0
+    },
+    "added": [],
+    "removed": [],
+    "changed": [],
+    "ambiguous": []
+  }
+}

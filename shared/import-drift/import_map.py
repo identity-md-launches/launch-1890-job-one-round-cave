@@ -95,12 +95,19 @@ def cycles(graph):
     return sorted(result)
 
 
-def inspect(root):
+def inspect(root, *, source_bytes=None):
+    """Inspect a tree, or a caller-supplied snapshot of relative paths to bytes.
+
+    The snapshot form performs no filesystem reads. It lets bounded callers
+    analyze exactly the bytes they admitted, without re-enumerating the tree.
+    Existing callers retain the original tree-scanning behavior.
+    """
     paths = {}
     candidates = {}
     issues = []
-    for path in source_files(root):
-        relative = path.relative_to(root)
+    relatives = (sorted(Path(p) for p in source_bytes) if source_bytes is not None
+                 else (path.relative_to(root) for path in source_files(root)))
+    for relative in relatives:
         name = module_name(relative)
         if name:
             candidates.setdefault(name, []).append(relative.as_posix())
@@ -129,7 +136,8 @@ def inspect(root):
             # Parse original bytes so Python handles its UTF-8 BOM and encoding
             # cookies. Decoding to UTF-8 first loses valid source information.
             # ast.parse builds a tree only; inspected code is never executed.
-            source = (root / relative).read_bytes()
+            source = (source_bytes[relative] if source_bytes is not None
+                      else (root / relative).read_bytes())
             tree = ast.parse(source, filename=relative)
         except (SyntaxError, UnicodeError) as exc:
             issues.append({"type": "parse_error", "path": relative, "line": getattr(exc, "lineno", None), "detail": str(exc)})

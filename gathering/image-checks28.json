@@ -1,0 +1,58 @@
+{
+  "ancestor_sha256": "e7256a320723e099c335136fa81c573d4a55d1076f1f0cf231c1bc596618bfec",
+  "generated_sha256": "637450be9d4f6774ffccb237f65e486bc6dcef35a1c04a0c3d2a56df545f5bed",
+  "png": {
+    "path": "artifacts/gathering/wall-v8.png",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 4001849,
+    "sha256": "0a0d20b87837000a197558fff5edcdded6a11e65fbe13fa6ba95494ed5b177b8"
+  },
+  "jpeg": {
+    "path": "dist/gathering/28.jpg",
+    "format": "JPEG",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 67245
+  },
+  "preservation": {
+    "source_rectangle": [
+      576,
+      951,
+      720,
+      1040
+    ],
+    "rectangle": [
+      544,
+      972,
+      664,
+      1046
+    ],
+    "changed_pixels": 2151,
+    "changed_bounds": [
+      545,
+      973,
+      662,
+      1043
+    ],
+    "outside_rectangle_changed_pixels": 0
+  },
+  "model": "built-in image_gen",
+  "visual_review_required": false,
+  "unmet_visual_requirements": [],
+  "visual_review": {
+    "opened_final_png": true,
+    "opened_final_jpeg": true,
+    "upper_hand_digits": 5,
+    "lower_hand_digits": 5,
+    "new_hands_or_stencils": 0,
+    "unmet_visual_requirements": [],
+    "limitation": "The worn small sieve is faint at thumbnail scale."
+  }
+}
