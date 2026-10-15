@@ -11,6 +11,7 @@ MAX_ARRAY_ITEMS = 4096
 MAX_DATA_BYTES = 1024 * 1024
 MAX_ARGS_BYTES = 1024 * 1024
 MAX_PARAMS = 256
+MAX_FUNCTION_REFERENCE = 8192
 
 def check_budget(size, subject):
     if size > MAX_DATA_BYTES:
@@ -296,7 +297,28 @@ def validate_abi(abi):
                     raise ValueError(f'ABI entry {i} {field}[{j}] name must be a string')
     return abi
 
+def function_reference(reference):
+    """Return (name, canonical signature or None), without guessing overloads."""
+    if not isinstance(reference, str) or len(reference) > MAX_FUNCTION_REFERENCE:
+        raise ValueError(f'function reference must be at most {MAX_FUNCTION_REFERENCE} characters')
+    if re.fullmatch(r'[A-Za-z_$][A-Za-z0-9_$]*', reference):
+        return reference, None
+    match = re.fullmatch(r'([A-Za-z_$][A-Za-z0-9_$]*)\(([^()]*)\)', reference)
+    if not match:
+        raise ValueError('function must be a name or a signature such as transfer(address,uint256), without spaces')
+    name, arguments = match.groups()
+    types = arguments.split(',') if arguments else []
+    check_params(types)
+    signature = name + '(' + ','.join(canonical({'type': t}) for t in types) + ')'
+    return name, signature
+
+def input_signature(fn):
+    params = fn.get('inputs', [])
+    check_params(params)
+    return fn['name'] + '(' + ','.join(canonical(p) for p in params) + ')'
+
 def load_function(path, name):
+    function_name, requested_signature = function_reference(name)
     # Explicit ABI inputs stay under the workspace from which the CLI is run.
     root = Path.cwd().resolve()
     source = Path(path).resolve()
@@ -310,14 +332,29 @@ def load_function(path, name):
         abi = validate_abi(json.loads(raw.decode('utf-8-sig'), object_pairs_hook=unique_object))
     except RecursionError as e:
         raise ValueError('ABI JSON nesting is too deep') from e
-    matches=[x for x in abi if x.get('type')=='function' and x.get('name')==name]
-    if len(matches)!=1: raise ValueError(f'expected exactly one ABI function named {name!r}; found {len(matches)}')
+    matches=[x for x in abi if x.get('type')=='function' and x.get('name')==function_name]
+    if requested_signature is not None:
+        selected = []
+        for fn in matches:
+            try:
+                candidate = input_signature(fn)
+            except ValueError:
+                # An unsupported input signature cannot equal the supported
+                # requested signature. Do not let an unrelated tuple overload
+                # block selecting a scalar overload from the same ABI.
+                continue
+            if candidate == requested_signature:
+                selected.append(fn)
+        matches = selected
+    if len(matches)!=1:
+        hint = '; use --function with an explicit signature to select an overload' if requested_signature is None and len(matches)>1 else ''
+        raise ValueError(f'expected exactly one ABI function matching {name!r}; found {len(matches)}{hint}')
     fn=matches[0]
     check_params(fn.get('inputs', []))
     check_params(fn.get('outputs', []))
     for param in fn.get('outputs', []):
         canonical(param)
-    sig=fn['name']+'('+','.join(canonical(p) for p in fn.get('inputs',[]))+')'
+    sig=input_signature(fn)
     return fn,sig
 
 def demo():
@@ -335,6 +372,8 @@ def main():
     call=sub.add_parser('decode-call', help='inspect canonical calldata offline')
     call.add_argument('--abi',required=True); call.add_argument('--function',required=True)
     call.add_argument('--data',required=True,help='0x-prefixed calldata with selector')
+    for parser in (enc, dec, call):
+        parser.epilog = '--function accepts a unique name or an explicit signature, e.g. transfer(address,uint256). Quote signatures in a shell.'
     a=ap.parse_args()
     try:
         if a.demo: demo(); return 0

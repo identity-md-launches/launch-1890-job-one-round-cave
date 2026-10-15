@@ -1,0 +1,6 @@
+[
+  {"type":"function","name":"bar","inputs":[{"name":"pair","type":"bytes3[2]"}],"outputs":[]},
+  {"type":"function","name":"bar","inputs":[{"name":"amount","type":"uint"}],"outputs":[{"name":"amount","type":"uint256"}]},
+  {"type":"function","name":"baz","inputs":[{"name":"x","type":"uint32"},{"name":"y","type":"bool"}],"outputs":[{"name":"r","type":"bool"}]},
+  {"type":"function","name":"baz","inputs":[{"name":"message","type":"string"}],"outputs":[{"name":"message","type":"string"}]}
+]

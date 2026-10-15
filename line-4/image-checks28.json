@@ -1,0 +1,50 @@
+{
+  "ancestor_sha256": "1b1a97574c3af56dd7870b3747a57f73b68495ae8b1e9465fb301003ecb1356a",
+  "generated_sha256": "ce84c2fbf6352ab892506a11b51b2d8bdbb9012aa5998623a74dbfd1eb20ee54",
+  "png": {
+    "path": "artifacts/line-4/wall-v8.png",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 4079454,
+    "sha256": "6a4df630111727e4bb5254af9dbcb034274e94617bc9677eceba614b2492d40c"
+  },
+  "jpeg": {
+    "path": "dist/line-4/28.jpg",
+    "format": "JPEG",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 72011,
+    "sha256": "7fbb35f247c77382a4b601f370c001be31dfb35688a92340a1dfe204fd6c1b3a"
+  },
+  "preservation": {
+    "rectangle": [
+      570,
+      945,
+      685,
+      1065
+    ],
+    "changed_pixels": 13547,
+    "changed_bounds": [
+      571,
+      946,
+      684,
+      1064
+    ],
+    "outside_rectangle_changed_pixels": 0
+  },
+  "visual_review_required": false,
+  "visual_review_completed": true,
+  "unmet_visual_requirements": [],
+  "tests": {
+    "passed": 62,
+    "failed": 0,
+    "new_overload_tests": 12,
+    "command": "python3 -B -m unittest discover -s line-4/tools/abi-workbench -v"
+  }
+}

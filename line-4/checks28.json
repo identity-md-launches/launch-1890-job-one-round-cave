@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "record": 28,
+  "older_record_and_preview_files_unchanged": 34,
+  "goal_unchanged_byte_for_byte": true,
+  "changed_paths_in_scope": [
+    "line-4/USED.md",
+    "line-4/VISUAL_REVIEW.md",
+    "line-4/tools/abi-workbench/README.md",
+    "line-4/tools/abi-workbench/abi_workbench.py",
+    "dist/line-4/28.jpg",
+    "dist/line-4/28.json",
+    "line-4/finish_wall28.js",
+    "line-4/image-checks28.json",
+    "line-4/tools/abi-workbench/overload-example.json",
+    "line-4/tools/abi-workbench/test_overloads.py"
+  ],
+  "new_files_outside_artifacts_below_100000_bytes": true,
+  "required_png_untracked": true,
+  "png_dimensions": [
+    1254,
+    1254
+  ],
+  "png_sha256": "6a4df630111727e4bb5254af9dbcb034274e94617bc9677eceba614b2492d40c",
+  "jpeg_dimensions": [
+    512,
+    512
+  ],
+  "jpeg_bytes": 72011,
+  "legacy_demo_selector": "0xa9059cbb",
+  "unmet_visual_requirements": [],
+  "test_results": "62 tests passed; see image-checks28.json",
+  "limitations": "Local checks and visual review only; not independent certification."
+}

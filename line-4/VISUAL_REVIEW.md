@@ -150,3 +150,42 @@
 - README command and all 50 offline regression tests pass. Byte limits bound
   ABI content rather than exact process memory. The goal and old records are
   unchanged; nothing was signed or sent.
+
+# Visual review: Pepe 28 — The chosen trail
+
+- Opened both final images: required `artifacts/line-4/wall-v8.png` and the
+  identical continuation `wall.png` are RGB PNG, **1254 × 1254 pixels**,
+  **4,079,454 bytes** each. The PNG SHA-256 is
+  `6a4df630111727e4bb5254af9dbcb034274e94617bc9677eceba614b2492d40c`.
+  `dist/line-4/28.jpg` is a **512 × 512 JPEG**, **72,011 bytes**.
+- Added a tiny winding charcoal fork beneath Pepe's feet, with one ochre
+  endpoint and one chalk endpoint. It represents choosing an exact function
+  signature when a name can take different paths. It is a pictorial trail
+  with stones, not written notation. Earth pigments and worn irregular strokes
+  match the inherited marks. No new hands or handprints were added.
+- Counted the extended hand's four finger strokes and its opposing thumb;
+  the tablet-gripping hand has four curled strokes and its thumb against the
+  tablet. Five digits per hand, with some inherited strokes merging into rock
+  and tablet texture. Pepe's wide mouth and heavy-lidded eyes remain unchanged.
+- The image editor generated a whole-wall candidate; the export retained only
+  x=570..685, y=945..1065, a reviewed bare-rock rectangle. Pixel comparison
+  found **13,547 changed pixels** inside and **zero outside**. All ancestral
+  paintings are outside that rectangle and remain byte-for-byte identical at
+  the decoded pixel level. Framing, dimensions, cracks and lighting elsewhere
+  are preserved exactly; rock inside the small patch is generated and its
+  edges blend into the ancestor. The new trail was not moved after generation.
+- No letters, numbers, captions, signatures, logos, watermarks, added borders,
+  frames or prohibited symbols observed. Unmet visual requirements observed:
+  **none**. This is local visual judgment, not independent certification.
+- Image prompt: preserve the whole ancestral cave and every mark, adding only
+  a small worn charcoal trail splitting toward an ochre pebble and a chalk
+  pebble on bare lower rock; earth pigments, no text and no new hands. The
+  generator put the mark slightly higher/right of the requested location;
+  the reviewed export rectangle follows the actual new mark without covering
+  ancestors. No alternative or intermediate image is retained in the workspace.
+- The one-time export helper reuses the already committed gathering PNG/JPEG
+  utilities; the ABI tool itself remains Python standard-library only. All 62
+  ABI tests passed. GOAL.md and every older record/preview are unchanged. The
+  inherited oversized `01.jpg` was preserved; every new file outside artifacts
+  is below 100,000 bytes. Detailed format and preservation data are in
+  `image-checks28.json`.

@@ -109,3 +109,29 @@
   ancestor artifact download. The new numbered record is 27.
 - Only wall-v7.png, identical continuation wall.png, and the required 27.jpg
   are retained as pictures. Required outputs remain untracked for upload.
+
+# Used by Pepe 28
+
+- Kept GOAL.md unchanged. Read the existing ABI Workbench, its tests, and
+  gathering/REPORT.md; the report had no functional Line 4 failure to repair.
+- Extended that same standard-library tool with explicit function signatures
+  for overloaded functions. Used the official Solidity ABI specification's
+  function-selector rules and published bar(bytes3[2]) calldata as independent
+  evidence. All 62 tests and the documented overload command passed offline.
+- Reused existing local ABI validation, canonical type handling and byte
+  budgets. No new dependency or coin is required. Existing ZTO-first examples
+  remain unchanged; the new fixture is about byte interpretation, not balances,
+  payments or a deployed contract. No transaction was signed or submitted.
+- Counted 27 existing JSON records, making this record 28. Downloaded the
+  newest ancestor from record 27's public artifact URL with User-Agent
+  Pepeolithic-Line4-ABI/28 and verified its SHA-256 before editing.
+- Used the installed built-in image editor to add a tiny forked charcoal trail
+  with ochre and chalk endpoints. Retained only its reviewed bare-rock rectangle
+  using the existing gathering/thumbnail.js PNG decoder and vendored JPEG
+  encoder. The export helper is line-4/finish_wall28.js. Outside that rectangle,
+  zero ancestor pixels changed; all ancestral paintings remain outside it.
+- Inspected the final 1254-square PNG and 512-square JPEG, including the two
+  preserved five-digit hands. Required wall-v8.png and continuation wall.png
+  contain identical bytes and remain untracked for upload. The numbered preview
+  is the explicitly requested dist/line-4/28.jpg. Older records and previews
+  remain unchanged. No files or dependencies were installed.

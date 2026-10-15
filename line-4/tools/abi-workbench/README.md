@@ -13,11 +13,11 @@ From the repository root:
 python3 -B -m unittest discover -s line-4/tools/abi-workbench -v
 ```
 
-This runs 50 regression tests, including the gathering's defect reports,
+This runs 62 regression tests, including the gathering's defect reports,
 all 32 integer widths, malformed output checks, and eight Keccak vectors
 independently obtained using `cast keccak` (Cast is not needed to run the tests).
-All 50 passed locally, including input-boundary, scalar-array, strict-return,
-and calldata-inspection tests. The original demo also passed:
+All 62 passed locally, including input-boundary, scalar-array, strict-return,
+calldata-inspection and explicit-overload tests. The original demo also passed:
 
 ```sh
 python3 -B line-4/tools/abi-workbench/abi_workbench.py --demo
@@ -67,8 +67,9 @@ nonzero address/bytes padding, dynamic offsets into the head, missing tail
 padding, and nonzero dynamic padding. Direct `encode_value` calls now use the
 same type validation as the CLI.
 
-Tuples, nested arrays, arrays of `string` or dynamic `bytes`, events, fixed
-point and ambiguous overloaded names are explicitly unsupported. The default decoder permits noncanonical tail layouts and surplus words for
+Tuples, nested arrays, arrays of `string` or dynamic `bytes`, events and fixed
+point are explicitly unsupported. Ambiguous bare function names are rejected;
+explicit signatures can select overloads as described below. The default decoder permits noncanonical tail layouts and surplus words for
 compatibility. Use `decode --strict` to require exact canonical re-encoding for
 the supported types; unsupported ABI types remain unsupported. ABI files are limited to 1 MiB before parsing. Argument JSON and ABI byte budgets are documented below. This is a
 local byte interpreter, not proof of an on-chain value or transaction success.
@@ -177,3 +178,46 @@ Checks include exact boundaries, UTF-8 byte counts, excessive JSON nesting,
 aggregate encoding, alias amplification and CLI rejection with exit 2 and no
 success output. The original ZTO transfer demo still runs offline. Nothing is
 signed, sent or queried on chain, and no dependency was added.
+
+## Explicit overloaded functions (Pepe 28)
+
+Workers can now select overloaded functions with a full `--function` signature
+in all three commands: `encode`, `decode`, and `decode-call`. A bare name still
+requires exactly one function entry. The tool never guesses from argument
+values, return data, or a four-byte selector. This matters when two overloads
+accept the same JSON value but encode it differently.
+
+One command from the repository root shows it working:
+
+```sh
+python3 -B line-4/tools/abi-workbench/abi_workbench.py encode --abi line-4/tools/abi-workbench/overload-example.json --function 'bar(bytes3[2])' --args '[["0x616263","0x646566"]]'
+```
+
+Tried locally: exit 0, selector `0xfce353f6`, followed by the exact two words
+in the [Solidity ABI specification's bar example](https://docs.soliditylang.org/en/latest/abi-spec.html#examples).
+The fixture adds illustrative overloads to the published `bar` and `baz`
+functions; it is an offline ABI fixture, not the ABI of an identified deployed
+contract. Replacing the signature with bare `bar` returns exit 2, an ambiguity
+error, and no success output. Nothing is sent to any contract.
+
+Quote signatures in a shell. Spaces, parameter names, return types, tuples,
+unsupported types and malformed signatures are rejected. `uint` and `int`
+aliases normalize to 256 bits in both the supplied reference and the ABI,
+including supported arrays. For example, `bar(uint)` selects `bar(uint256)`.
+Zero-argument signatures such as `symbol()` work too. Function references
+are limited to 8,192 characters and 256 input types. ABI/data budgets and the
+supported type subset remain in force.
+
+Selection compares the complete canonical input signature, not its four-byte
+hash. Duplicate canonical signatures are refused, even if parameter names or
+output types differ. An unsupported sibling overload does not prevent selecting
+a supported overload; unsupported inputs or outputs of the selected function
+still fail. This does not expand tuple/event support or authenticate an ABI,
+contract, chain, or execution result. Selector collisions can exist; choosing
+an explicit signature does not prove which function a contract implements.
+
+All 62 tests passed locally, including 12 new overload regressions covering
+the published calldata, all three CLI commands, alias equivalence, duplicate
+signatures, unsupported siblings, empty inputs, arrays, bounded references,
+and concise error exits without success output. The tool still uses only
+Python's standard library and works with no network or installed dependency.
